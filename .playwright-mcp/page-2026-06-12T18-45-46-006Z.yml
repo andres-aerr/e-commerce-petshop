@@ -1,0 +1,83 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - paragraph [ref=e4]: 🐾 Envio gratis sobre $35.000 CLP
+    - generic [ref=e5]:
+      - link "Contacto" [ref=e6] [cursor=pointer]:
+        - /url: /contacto
+      - link "FAQ" [ref=e7] [cursor=pointer]:
+        - /url: /faq
+  - banner [ref=e8]:
+    - generic [ref=e10]:
+      - link "🐾 Savia" [ref=e11] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e12]: 🐾
+        - generic [ref=e13]: Savia
+      - navigation [ref=e14]:
+        - link "Perros" [ref=e15] [cursor=pointer]:
+          - /url: /products?pet_type=dog
+        - link "Gatos" [ref=e16] [cursor=pointer]:
+          - /url: /products?pet_type=cat
+        - link "Nutricion Natural" [ref=e17] [cursor=pointer]:
+          - /url: /products?category=nutricion-natural
+      - generic [ref=e18]:
+        - button "Buscar" [ref=e19] [cursor=pointer]:
+          - img [ref=e20]
+        - link "Carrito" [ref=e23] [cursor=pointer]:
+          - /url: /cart
+          - img [ref=e24]
+  - main [ref=e28]
+  - contentinfo [ref=e87]:
+    - generic [ref=e88]:
+      - generic [ref=e89]:
+        - generic [ref=e90]:
+          - heading "Productos" [level=4] [ref=e91]
+          - list [ref=e92]:
+            - listitem [ref=e93]:
+              - link "Alimentos para Perros" [ref=e94] [cursor=pointer]:
+                - /url: /products?pet_type=dog
+            - listitem [ref=e95]:
+              - link "Alimentos para Gatos" [ref=e96] [cursor=pointer]:
+                - /url: /products?pet_type=cat
+            - listitem [ref=e97]:
+              - link "Arenas Sanitarias" [ref=e98] [cursor=pointer]:
+                - /url: /products?category=arenas-sanitarias
+            - listitem [ref=e99]:
+              - link "Accesorios" [ref=e100] [cursor=pointer]:
+                - /url: /products?category=accesorios
+            - listitem [ref=e101]:
+              - link "Nutricion Natural" [ref=e102] [cursor=pointer]:
+                - /url: /products?category=nutricion-natural
+        - generic [ref=e103]:
+          - heading "Ayuda" [level=4] [ref=e104]
+          - list [ref=e105]:
+            - listitem [ref=e106]:
+              - link "Contacto" [ref=e107] [cursor=pointer]:
+                - /url: /contacto
+            - listitem [ref=e108]:
+              - link "Preguntas Frecuentes" [ref=e109] [cursor=pointer]:
+                - /url: /faq
+            - listitem [ref=e110]:
+              - link "Politica de Devoluciones" [ref=e111] [cursor=pointer]:
+                - /url: /devoluciones
+            - listitem [ref=e112]:
+              - link "Terminos y Condiciones" [ref=e113] [cursor=pointer]:
+                - /url: /terminos
+            - listitem [ref=e114]:
+              - link "Despacho y Entregas" [ref=e115] [cursor=pointer]:
+                - /url: /despacho
+        - generic [ref=e116]:
+          - heading "Savia" [level=4] [ref=e117]
+          - list [ref=e118]:
+            - listitem [ref=e119]:
+              - link "Sobre Nosotros" [ref=e120] [cursor=pointer]:
+                - /url: /about
+            - listitem [ref=e121]:
+              - link "Blog" [ref=e122] [cursor=pointer]:
+                - /url: /blog
+            - listitem [ref=e123]:
+              - link "Trabaja con Nosotros" [ref=e124] [cursor=pointer]:
+                - /url: /trabaja
+      - paragraph [ref=e126]: © 2026 Savia. Todos los derechos reservados.
+  - button "Open Next.js Dev Tools" [ref=e132] [cursor=pointer]:
+    - img [ref=e133]
+  - alert [ref=e136]

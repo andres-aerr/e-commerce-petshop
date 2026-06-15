@@ -1,0 +1,98 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - paragraph [ref=e4]: 🐾 Envio gratis sobre $35.000 CLP
+    - generic [ref=e5]:
+      - link "Contacto" [ref=e6] [cursor=pointer]:
+        - /url: /contacto
+      - link "FAQ" [ref=e7] [cursor=pointer]:
+        - /url: /faq
+  - banner [ref=e8]:
+    - generic [ref=e10]:
+      - link "🐾 Savia" [ref=e11] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e12]: 🐾
+        - generic [ref=e13]: Savia
+      - navigation [ref=e14]:
+        - link "Perros" [ref=e15] [cursor=pointer]:
+          - /url: /products?pet_type=dog
+        - link "Gatos" [ref=e16] [cursor=pointer]:
+          - /url: /products?pet_type=cat
+        - link "Nutricion Natural" [ref=e17] [cursor=pointer]:
+          - /url: /products?category=nutricion-natural
+      - generic [ref=e18]:
+        - button "Buscar" [ref=e19] [cursor=pointer]:
+          - img [ref=e20]
+        - link "Carrito" [ref=e23] [cursor=pointer]:
+          - /url: /cart
+          - img [ref=e24]
+  - main [ref=e28]:
+    - generic [ref=e29]:
+      - generic [ref=e30]:
+        - heading "Perros" [level=1] [ref=e31]
+        - paragraph [ref=e32]: Explora por categoria o descubre nuestros recomendados
+      - generic [ref=e33]:
+        - link "Alimentos" [ref=e34] [cursor=pointer]:
+          - /url: /products?pet_type=dog&category=alimentos-secos-perro
+          - generic [ref=e36]: Alimentos
+        - link "Snacks" [ref=e37] [cursor=pointer]:
+          - /url: /products?pet_type=dog&category=snacks
+          - generic [ref=e39]: Snacks
+        - link "Juguetes" [ref=e40] [cursor=pointer]:
+          - /url: /products?pet_type=dog&category=juguetes
+          - generic [ref=e42]: Juguetes
+        - link "Accesorios" [ref=e43] [cursor=pointer]:
+          - /url: /products?pet_type=dog&category=accesorios
+          - generic [ref=e45]: Accesorios
+      - heading "Recomendados para Perros" [level=2] [ref=e47]
+  - contentinfo [ref=e99]:
+    - generic [ref=e100]:
+      - generic [ref=e101]:
+        - generic [ref=e102]:
+          - heading "Productos" [level=4] [ref=e103]
+          - list [ref=e104]:
+            - listitem [ref=e105]:
+              - link "Alimentos para Perros" [ref=e106] [cursor=pointer]:
+                - /url: /products?pet_type=dog
+            - listitem [ref=e107]:
+              - link "Alimentos para Gatos" [ref=e108] [cursor=pointer]:
+                - /url: /products?pet_type=cat
+            - listitem [ref=e109]:
+              - link "Arenas Sanitarias" [ref=e110] [cursor=pointer]:
+                - /url: /products?category=arenas-sanitarias
+            - listitem [ref=e111]:
+              - link "Accesorios" [ref=e112] [cursor=pointer]:
+                - /url: /products?category=accesorios
+            - listitem [ref=e113]:
+              - link "Nutricion Natural" [ref=e114] [cursor=pointer]:
+                - /url: /products?category=nutricion-natural
+        - generic [ref=e115]:
+          - heading "Ayuda" [level=4] [ref=e116]
+          - list [ref=e117]:
+            - listitem [ref=e118]:
+              - link "Contacto" [ref=e119] [cursor=pointer]:
+                - /url: /contacto
+            - listitem [ref=e120]:
+              - link "Preguntas Frecuentes" [ref=e121] [cursor=pointer]:
+                - /url: /faq
+            - listitem [ref=e122]:
+              - link "Politica de Devoluciones" [ref=e123] [cursor=pointer]:
+                - /url: /devoluciones
+            - listitem [ref=e124]:
+              - link "Terminos y Condiciones" [ref=e125] [cursor=pointer]:
+                - /url: /terminos
+            - listitem [ref=e126]:
+              - link "Despacho y Entregas" [ref=e127] [cursor=pointer]:
+                - /url: /despacho
+        - generic [ref=e128]:
+          - heading "Savia" [level=4] [ref=e129]
+          - list [ref=e130]:
+            - listitem [ref=e131]:
+              - link "Sobre Nosotros" [ref=e132] [cursor=pointer]:
+                - /url: /about
+            - listitem [ref=e133]:
+              - link "Blog" [ref=e134] [cursor=pointer]:
+                - /url: /blog
+            - listitem [ref=e135]:
+              - link "Trabaja con Nosotros" [ref=e136] [cursor=pointer]:
+                - /url: /trabaja
+      - paragraph [ref=e138]: © 2026 Savia. Todos los derechos reservados.

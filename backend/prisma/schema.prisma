@@ -1,0 +1,235 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Category {
+  id          String    @id @default(uuid())
+  name        String
+  slug        String    @unique
+  description String?
+  pet_type    String?
+  parent_id   String?
+  parent      Category? @relation("CategoryHierarchy", fields: [parent_id], references: [id])
+  children    Category[] @relation("CategoryHierarchy")
+  products    Product[]
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
+}
+
+model Product {
+  id                       String    @id @default(uuid())
+  name                     String
+  slug                     String    @unique
+  description              String?
+  category_id              String
+  category                 Category  @relation(fields: [category_id], references: [id])
+  sku                      String    @unique
+  pet_type                 String
+  image_url                String?
+  images_json              String?   // JSON string de URLs
+  weight_kg                Float?
+  is_published             Boolean   @default(false)
+  is_bestseller            Boolean   @default(false)
+  badge                    String?
+
+  price_one_time           Float
+  price_autoship           Float
+  autoship_discount_percentage Int   @default(10)
+
+  stock_quantity           Int       @default(0)
+
+  meta_title               String?
+  meta_description         String?
+
+  supplier_id              String?
+  supplier_sku             String?
+  cost_price               Float?
+
+  reviews                  Review[]
+  order_items              OrderItem[]
+  subscription_items       SubscriptionItem[]
+
+  created_at               DateTime  @default(now())
+  updated_at               DateTime  @updatedAt
+
+  @@index([category_id])
+  @@index([slug])
+  @@index([is_published])
+  @@index([pet_type])
+}
+
+model Review {
+  id              String    @id @default(uuid())
+  product_id      String
+  product         Product   @relation(fields: [product_id], references: [id])
+  user_id         String?
+  user            User?     @relation(fields: [user_id], references: [id])
+  order_id        String?
+  rating          Int
+  title           String?
+  content         String?
+  pet_name        String?
+  pet_breed       String?
+  pet_image_url   String?
+  is_verified     Boolean   @default(false)
+  is_published    Boolean   @default(true)
+  created_at      DateTime  @default(now())
+  updated_at      DateTime  @updatedAt
+
+  @@index([product_id])
+  @@index([is_published])
+  @@index([user_id])
+}
+
+model User {
+  id              String    @id @default(uuid())
+  email           String    @unique
+  password_hash   String?
+  first_name      String?
+  last_name       String?
+  phone           String?
+  is_guest        Boolean   @default(false)
+  created_at      DateTime  @default(now())
+  updated_at      DateTime  @updatedAt
+
+  addresses       Address[]
+  orders          Order[]
+  subscriptions   Subscription[]
+  reviews         Review[]
+}
+
+model Address {
+  id              String    @id @default(uuid())
+  user_id         String
+  user            User      @relation(fields: [user_id], references: [id])
+  full_name       String
+  street          String
+  number          String?
+  apartment       String?
+  commune         String
+  city            String    @default("Santiago")
+  region          String    @default("Metropolitana")
+  postal_code     String?
+  is_default      Boolean   @default(false)
+  created_at      DateTime  @default(now())
+  updated_at      DateTime  @updatedAt
+
+  shippingOrders  Order[]   @relation("ShippingAddress")
+  billingOrders   Order[]   @relation("BillingAddress")
+  shippingSubs    Subscription[] @relation("SubShippingAddress")
+  billingSubs     Subscription[] @relation("SubBillingAddress")
+
+  @@index([user_id])
+}
+
+model Order {
+  id                    String    @id @default(uuid())
+  user_id               String
+  user                  User      @relation(fields: [user_id], references: [id])
+  subscription_id       String?
+  subscription          Subscription? @relation(fields: [subscription_id], references: [id])
+
+  subtotal              Float
+  shipping_cost         Float
+  tax                   Float     @default(0)
+  total                 Float
+
+  shipping_address_id   String
+  shipping_address      Address   @relation("ShippingAddress", fields: [shipping_address_id], references: [id])
+  billing_address_id    String
+  billing_address       Address   @relation("BillingAddress", fields: [billing_address_id], references: [id])
+
+  status                String    @default("pending")
+  payment_method        String?
+
+  tracking_number       String?
+  estimated_delivery_date DateTime?
+
+  items                 OrderItem[]
+  payment               Payment?
+
+  created_at            DateTime  @default(now())
+  updated_at            DateTime  @updatedAt
+  delivered_at          DateTime?
+
+  @@index([user_id])
+  @@index([status])
+  @@index([subscription_id])
+}
+
+model OrderItem {
+  id              String    @id @default(uuid())
+  order_id        String
+  order           Order     @relation(fields: [order_id], references: [id])
+  product_id      String
+  product         Product   @relation(fields: [product_id], references: [id])
+  quantity        Int
+  price_at_purchase Float
+  is_autoship     Boolean   @default(false)
+  created_at      DateTime  @default(now())
+
+  @@index([order_id])
+  @@index([product_id])
+}
+
+model Subscription {
+  id                    String    @id @default(uuid())
+  user_id               String
+  user                  User      @relation(fields: [user_id], references: [id])
+  frequency_days        Int
+  status                String    @default("active")
+  paused_until          DateTime?
+  next_delivery_date    DateTime
+  shipping_address_id   String
+  shipping_address      Address   @relation("SubShippingAddress", fields: [shipping_address_id], references: [id])
+  billing_address_id    String
+  billing_address       Address   @relation("SubBillingAddress", fields: [billing_address_id], references: [id])
+  created_at            DateTime  @default(now())
+  updated_at            DateTime  @updatedAt
+  cancelled_at          DateTime?
+  cancellation_reason   String?
+
+  items                 SubscriptionItem[]
+  orders                Order[]
+
+  @@index([user_id])
+  @@index([status])
+  @@index([next_delivery_date])
+}
+
+model SubscriptionItem {
+  id                String    @id @default(uuid())
+  subscription_id   String
+  subscription      Subscription @relation(fields: [subscription_id], references: [id])
+  product_id        String
+  product           Product   @relation(fields: [product_id], references: [id])
+  quantity          Int       @default(1)
+  price_at_creation Float
+  created_at        DateTime  @default(now())
+  updated_at        DateTime  @updatedAt
+
+  @@index([subscription_id])
+  @@index([product_id])
+}
+
+model Payment {
+  id                String    @id @default(uuid())
+  order_id          String    @unique
+  order             Order     @relation(fields: [order_id], references: [id])
+  payment_method    String
+  webpay_token_id   String?
+  mercado_pago_id   String?
+  status            String    @default("pending")
+  amount            Float
+  currency          String    @default("CLP")
+  created_at        DateTime  @default(now())
+  updated_at        DateTime  @updatedAt
+  processed_at      DateTime?
+
+  @@index([status])
+}
