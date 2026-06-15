@@ -5,36 +5,90 @@ const prisma = new PrismaClient();
 async function main() {
   console.log('🌱 Seeding database...');
 
-  const catAlimentoSecoPerro = await prisma.category.create({
-    data: { name: 'Alimentos Secos Perro', slug: 'alimentos-secos-perro', pet_type: 'dog' },
+  // ── CATEGORÍAS PADRE (Animales) ──
+  const perros = await prisma.category.create({
+    data: { name: 'Perros', slug: 'perros', pet_type: 'dog' },
   });
-  const catAlimentoSecoGato = await prisma.category.create({
-    data: { name: 'Alimentos Secos Gato', slug: 'alimentos-secos-gato', pet_type: 'cat' },
+  const gatos = await prisma.category.create({
+    data: { name: 'Gatos', slug: 'gatos', pet_type: 'cat' },
   });
-  const catArena = await prisma.category.create({
-    data: { name: 'Arenas Sanitarias', slug: 'arenas-sanitarias', pet_type: 'cat' },
+  const mascotasPequenas = await prisma.category.create({
+    data: { name: 'Mascotas pequeñas', slug: 'mascotas-pequenas', pet_type: 'small_pet' },
   });
-  const catSnack = await prisma.category.create({
-    data: { name: 'Snacks y Premios', slug: 'snacks', pet_type: 'both' },
-  });
-  const catAccesorio = await prisma.category.create({
-    data: { name: 'Accesorios', slug: 'accesorios', pet_type: 'both' },
-  });
-  const catClinico = await prisma.category.create({
-    data: { name: 'Prescripcion Clinica', slug: 'prescripcion-clinica', pet_type: 'dog' },
-  });
-  const catNutricion = await prisma.category.create({
-    data: { name: 'Nutricion Natural', slug: 'nutricion-natural', pet_type: 'both' },
+  const aves = await prisma.category.create({
+    data: { name: 'Aves', slug: 'aves', pet_type: 'bird' },
   });
 
+  // ── SUBCATEGORÍAS PERROS ──
+  const alimentoPerro = await prisma.category.create({
+    data: { name: 'Alimento', slug: 'alimento-perro', pet_type: 'dog', parent_id: perros.id },
+  });
+  const snackPerro = await prisma.category.create({
+    data: { name: 'Snack', slug: 'snack-perro', pet_type: 'dog', parent_id: perros.id },
+  });
+  const juguetesPerro = await prisma.category.create({
+    data: { name: 'Juguetes', slug: 'juguetes-perro', pet_type: 'dog', parent_id: perros.id },
+  });
+  const accesoriosPerro = await prisma.category.create({
+    data: { name: 'Accesorios', slug: 'accesorios-perro', pet_type: 'dog', parent_id: perros.id },
+  });
+
+  // ── SUBCATEGORÍAS GATOS ──
+  const alimentoGato = await prisma.category.create({
+    data: { name: 'Alimento', slug: 'alimento-gato', pet_type: 'cat', parent_id: gatos.id },
+  });
+  const snackGato = await prisma.category.create({
+    data: { name: 'Snack', slug: 'snack-gato', pet_type: 'cat', parent_id: gatos.id },
+  });
+  const juguetesGato = await prisma.category.create({
+    data: { name: 'Juguetes', slug: 'juguetes-gato', pet_type: 'cat', parent_id: gatos.id },
+  });
+  const accesoriosGato = await prisma.category.create({
+    data: { name: 'Accesorios', slug: 'accesorios-gato', pet_type: 'cat', parent_id: gatos.id },
+  });
+  const arenerosGato = await prisma.category.create({
+    data: { name: 'Areneros', slug: 'areneros-gato', pet_type: 'cat', parent_id: gatos.id },
+  });
+
+  // ── SUBCATEGORÍAS MASCOTAS PEQUEÑAS ──
+  const alimentoMascotas = await prisma.category.create({
+    data: { name: 'Alimento', slug: 'alimento-mascotas-pequenas', pet_type: 'small_pet', parent_id: mascotasPequenas.id },
+  });
+  const snackMascotas = await prisma.category.create({
+    data: { name: 'Snack', slug: 'snack-mascotas-pequenas', pet_type: 'small_pet', parent_id: mascotasPequenas.id },
+  });
+  const juguetesMascotas = await prisma.category.create({
+    data: { name: 'Juguetes', slug: 'juguetes-mascotas-pequenas', pet_type: 'small_pet', parent_id: mascotasPequenas.id },
+  });
+  const accesoriosMascotas = await prisma.category.create({
+    data: { name: 'Accesorios', slug: 'accesorios-mascotas-pequenas', pet_type: 'small_pet', parent_id: mascotasPequenas.id },
+  });
+
+  // ── SUBCATEGORÍAS AVES ──
+  const alimentoAves = await prisma.category.create({
+    data: { name: 'Alimento', slug: 'alimento-aves', pet_type: 'bird', parent_id: aves.id },
+  });
+  const snackAves = await prisma.category.create({
+    data: { name: 'Snack', slug: 'snack-aves', pet_type: 'bird', parent_id: aves.id },
+  });
+  const juguetesAves = await prisma.category.create({
+    data: { name: 'Juguetes', slug: 'juguetes-aves', pet_type: 'bird', parent_id: aves.id },
+  });
+  const accesoriosAves = await prisma.category.create({
+    data: { name: 'Accesorios', slug: 'accesorios-aves', pet_type: 'bird', parent_id: aves.id },
+  });
+
+  console.log('  ✅ Categorías creadas: 4 padres, 17 hijas');
+
+  // ── PRODUCTOS ──
   const products = [
-    // === ALIMENTOS PERRO (4) ===
+    // === PERROS - ALIMENTO (4) ===
     {
       name: 'Nomade Adulto Raza Mediana y Grande',
       slug: 'nomade-adulto-raza-mediana-20kg',
       image_url: '/images/products/nomade-adulto-raza-mediana-20kg.png',
       description: 'Alimento premium con pollo fresco para perros adultos de raza mediana y grande. Sin granos, sin maiz ni soja. Rico en Omega-3 y Omega-6 para pelaje brillante.',
-      category_id: catAlimentoSecoPerro.id,
+      category_id: alimentoPerro.id,
       sku: 'NOM-ADU-20',
       pet_type: 'dog',
       weight_kg: 20,
@@ -50,7 +104,7 @@ async function main() {
       slug: 'hills-science-diet-puppy-pollo-1-1kg',
       image_url: '/images/products/hills-science-diet-puppy-pollo-1-1kg.png',
       description: 'Formulacion clinica para cachorros con pollo como primera proteina. DHA para desarrollo cerebral y visual. Recomendado por veterinarios.',
-      category_id: catAlimentoSecoPerro.id,
+      category_id: alimentoPerro.id,
       sku: 'HIL-PUP-1.1',
       pet_type: 'dog',
       weight_kg: 1.1,
@@ -65,7 +119,7 @@ async function main() {
       slug: 'royal-canin-adulto-raza-mediana-15kg',
       image_url: '/images/products/royal-canin-adulto-raza-mediana-15kg.png',
       description: 'Alimento premium para perros adultos de 1-10 anos y 11-25kg. Formula con proteina de alta digestibilidad y complejo de antioxidantes.',
-      category_id: catAlimentoSecoPerro.id,
+      category_id: alimentoPerro.id,
       sku: 'RC-ADU-15',
       pet_type: 'dog',
       weight_kg: 15,
@@ -80,7 +134,7 @@ async function main() {
       slug: 'acana-heritage-adulto-pollo-pavo-11-4kg',
       image_url: '/images/products/acana-heritage-adulto-pollo-pavo-11-4kg.png',
       description: 'Alimento ultra premium con pollo y pavo fresco de granjas regionales. 50-75% ingredientes animales. Sin granos, sin gluten.',
-      category_id: catAlimentoSecoPerro.id,
+      category_id: alimentoPerro.id,
       sku: 'ACA-HER-11.4',
       pet_type: 'dog',
       weight_kg: 11.4,
@@ -90,13 +144,138 @@ async function main() {
       price_autoship: 53991,
       stock_quantity: 45,
     },
-    // === ALIMENTOS GATO (4) ===
+    // === PERROS - ALIMENTO CLÍNICO (2) ===
+    {
+      name: 'Hills Prescription Diet i/d Digestive Care',
+      slug: 'hills-prescription-diet-id-digestive-1-5kg',
+      image_url: '/images/products/hills-prescription-diet-id-digestive-1-5kg.png',
+      description: 'Alimento clinico para perros con problemas digestivos. Formula de facil digestion con prebioticos y electrolitos. Solo bajo recomendacion veterinaria.',
+      category_id: alimentoPerro.id,
+      sku: 'HIL-ID-1.5',
+      pet_type: 'dog',
+      weight_kg: 1.5,
+      is_published: true,
+      badge: 'Clinico',
+      price_one_time: 22990,
+      price_autoship: 20691,
+      stock_quantity: 30,
+    },
+    {
+      name: 'Royal Canin Gastro Intestinal',
+      slug: 'royal-canin-gastro-intestinal-2kg',
+      image_url: '/images/products/royal-canin-gastro-intestinal-2kg.png',
+      description: 'Formula clinica para trastornos gastrointestinales. Alta digestibilidad y contenido equilibrado de fibras. Exclusivo bajo recomendacion vet.',
+      category_id: alimentoPerro.id,
+      sku: 'RC-GAS-2',
+      pet_type: 'dog',
+      weight_kg: 2,
+      is_published: true,
+      badge: 'Veterinario',
+      price_one_time: 25990,
+      price_autoship: 23391,
+      stock_quantity: 35,
+    },
+    // === PERROS - SNACK (2) ===
+    {
+      name: 'Dental Stix Pack Cuidado Dental',
+      slug: 'dental-stix-pack-280g',
+      image_url: '/images/products/dental-stix-pack-280g.png',
+      description: 'Snack dental para perros de talla mediana. Ayuda a reducir la formacion de sarro. Textura unica que limpia los dientes mientras tu perro disfruta.',
+      category_id: snackPerro.id,
+      sku: 'DEN-STX-280',
+      pet_type: 'dog',
+      weight_kg: 0.28,
+      is_published: true,
+      badge: 'Salud Dental',
+      price_one_time: 5990,
+      price_autoship: 5391,
+      stock_quantity: 300,
+    },
+    {
+      name: 'Pedigree Dentastix 7 Unidades',
+      slug: 'pedigree-dentastix-7-unidades',
+      image_url: '/images/products/pedigree-dentastix-7-unidades.png',
+      description: 'Snack dental en forma de estrella para perros. Triple accion: limpia dientes, reduce sarro y refresca el aliento.',
+      category_id: snackPerro.id,
+      sku: 'PED-DEN-7',
+      pet_type: 'dog',
+      weight_kg: 0.1,
+      is_published: true,
+      badge: 'Dental',
+      price_one_time: 4990,
+      price_autoship: 4491,
+      stock_quantity: 400,
+    },
+    // === PERROS - ACCESORIOS (3) ===
+    {
+      name: 'Comedero Acero Inoxidable + Base Bambu',
+      slug: 'comedero-acero-bambu-set',
+      image_url: '/images/products/comedero-acero-bambu-set.png',
+      description: 'Set de comedero y bebedero de acero inoxidable con base de bambu natural. Antideslizante, facil de limpiar. Diseno escandinavo minimalista.',
+      category_id: accesoriosPerro.id,
+      sku: 'ACC-COM-BAM',
+      pet_type: 'both',
+      weight_kg: 0.8,
+      is_published: true,
+      badge: 'Diseno',
+      price_one_time: 18990,
+      price_autoship: 17091,
+      stock_quantity: 75,
+    },
+    {
+      name: 'Cama Ortopedica Memory Foam Mediana',
+      slug: 'cama-ortopedica-memory-foam-mediana',
+      image_url: '/images/products/cama-ortopedica-memory-foam-mediana.png',
+      description: 'Cama ortopedica con espuma viscoelastica. Alivia presion en articulaciones. Funda removible y lavable. Ideal para perros senior.',
+      category_id: accesoriosPerro.id,
+      sku: 'ACC-CAM-MEM',
+      pet_type: 'dog',
+      weight_kg: 3.5,
+      is_published: true,
+      is_bestseller: true,
+      badge: 'Ortopedica',
+      price_one_time: 49990,
+      price_autoship: 44991,
+      stock_quantity: 40,
+    },
+    // === PERROS - SUPLEMENTOS (2) ===
+    {
+      name: 'Caldo de Colageno Natural para Perros',
+      slug: 'caldo-colageno-natural-perros-1l',
+      image_url: '/images/products/caldo-colageno-natural-perros-1l.png',
+      description: 'Caldo de huesos 100% natural. Rico en colageno, glucosamina y condroitina. Beneficioso para articulaciones, piel y digestion. Sin conservantes.',
+      category_id: alimentoPerro.id,
+      sku: 'NUT-CAL-1L',
+      pet_type: 'dog',
+      weight_kg: 1,
+      is_published: true,
+      badge: 'Superfood',
+      price_one_time: 12990,
+      price_autoship: 11691,
+      stock_quantity: 80,
+    },
+    {
+      name: 'Aceite de Salmon Omega-3 para Mascotas',
+      slug: 'aceite-salmon-omega3-mascotas-500ml',
+      image_url: '/images/products/aceite-salmon-omega3-mascotas-500ml.png',
+      description: 'Aceite puro de salmon chileno. Rico en Omega-3, EPA y DHA. Mejora pelaje, piel y salud articular. Sin colorantes ni saborizantes.',
+      category_id: accesoriosPerro.id,
+      sku: 'NUT-ACE-500',
+      pet_type: 'both',
+      weight_kg: 0.5,
+      is_published: true,
+      badge: 'Suplemento',
+      price_one_time: 15990,
+      price_autoship: 14391,
+      stock_quantity: 90,
+    },
+    // === GATOS - ALIMENTO (4) ===
     {
       name: 'N&D Prime Gato Castrado Pollo',
       slug: 'nd-prime-gato-castrado-pollo-7-5kg',
       image_url: '/images/products/nd-prime-gato-castrado-pollo-7-5kg.png',
       description: 'Alimento ultra premium para gatos castrados. Pollo monoproteina, sin granos. Formula especial para control de peso y salud urinaria.',
-      category_id: catAlimentoSecoGato.id,
+      category_id: alimentoGato.id,
       sku: 'ND-CAST-7.5',
       pet_type: 'cat',
       weight_kg: 7.5,
@@ -112,7 +291,7 @@ async function main() {
       slug: 'nomade-gato-adulto-10kg',
       image_url: '/images/products/nomade-gato-adulto-10kg.png',
       description: 'Alimento premium para gatos adultos. Con pollo fresco y vegetales. Rico en taurina para salud cardiaca y visual.',
-      category_id: catAlimentoSecoGato.id,
+      category_id: alimentoGato.id,
       sku: 'NOM-GAT-10',
       pet_type: 'cat',
       weight_kg: 10,
@@ -128,7 +307,7 @@ async function main() {
       slug: 'royal-canin-gato-esterilizado-3-5kg',
       image_url: '/images/products/royal-canin-gato-esterilizado-3-5kg.png',
       description: 'Formula especifica para gatos esterilizados. Ayuda a mantener un peso saludable y prevenir problemas urinarios. Alta palatabilidad.',
-      category_id: catAlimentoSecoGato.id,
+      category_id: alimentoGato.id,
       sku: 'RC-GAT-EST-3.5',
       pet_type: 'cat',
       weight_kg: 3.5,
@@ -143,7 +322,7 @@ async function main() {
       slug: 'whiskas-gato-adulto-pollo-4kg',
       image_url: '/images/products/whiskas-gato-adulto-pollo-4kg.png',
       description: 'Alimento balanceado para gatos adultos con pollo. Formula con vitaminas y minerales para una vida saludable.',
-      category_id: catAlimentoSecoGato.id,
+      category_id: alimentoGato.id,
       sku: 'WHI-GAT-4',
       pet_type: 'cat',
       weight_kg: 4,
@@ -153,13 +332,29 @@ async function main() {
       price_autoship: 14391,
       stock_quantity: 200,
     },
-    // === ARENAS (3) ===
+    // === GATOS - SNACK (1) ===
+    {
+      name: 'Greenies Snack Dental Gato',
+      slug: 'greenies-snack-dental-gato-113g',
+      image_url: '/images/products/greenies-snack-dental-gato-113g.png',
+      description: 'Snack dental premium para gatos. Textura unica que limpia los dientes. Con clorofila natural para aliento fresco.',
+      category_id: snackGato.id,
+      sku: 'GRE-GAT-113',
+      pet_type: 'cat',
+      weight_kg: 0.113,
+      is_published: true,
+      badge: 'Premium',
+      price_one_time: 6990,
+      price_autoship: 6291,
+      stock_quantity: 150,
+    },
+    // === GATOS - ARENEROS (3) ===
     {
       name: 'Pride Litter Natural Arena Sanitaria',
       slug: 'pride-litter-natural-arena-10kg',
       image_url: '/images/products/pride-litter-natural-arena-10kg.png',
       description: 'Arena sanitaria natural aglomerante. Biodegradable, control de olor superior. Sin polvo, segura para gatos y humanos.',
-      category_id: catArena.id,
+      category_id: arenerosGato.id,
       sku: 'PRI-LIT-10',
       pet_type: 'cat',
       weight_kg: 10,
@@ -174,7 +369,7 @@ async function main() {
       slug: 'sanicat-arena-aglomerante-10kg',
       image_url: '/images/products/sanicat-arena-aglomerante-10kg.png',
       description: 'Arena aglomerante de alta calidad. Control de olores efectivo, facil de limpiar. Forma grupos compactos para una limpieza sencilla.',
-      category_id: catArena.id,
+      category_id: arenerosGato.id,
       sku: 'SAN-AGR-10',
       pet_type: 'cat',
       weight_kg: 10,
@@ -189,7 +384,7 @@ async function main() {
       slug: 'cats-best-arena-natural-5kg',
       image_url: '/images/products/cats-best-arena-natural-5kg.png',
       description: 'Arena natural 100% vegetal. Biodegradable, compostable. 3x mas absorbente que la arena tradicional. Ideal para hogares eco-conscientes.',
-      category_id: catArena.id,
+      category_id: arenerosGato.id,
       sku: 'CAT-BEST-5',
       pet_type: 'cat',
       weight_kg: 5,
@@ -199,90 +394,13 @@ async function main() {
       price_autoship: 13491,
       stock_quantity: 100,
     },
-    // === SNACKS (3) ===
-    {
-      name: 'Dental Stix Pack Cuidado Dental',
-      slug: 'dental-stix-pack-280g',
-      image_url: '/images/products/dental-stix-pack-280g.png',
-      description: 'Snack dental para perros de talla mediana. Ayuda a reducir la formacion de sarro. Textura unica que limpia los dientes mientras tu perro disfruta.',
-      category_id: catSnack.id,
-      sku: 'DEN-STX-280',
-      pet_type: 'dog',
-      weight_kg: 0.28,
-      is_published: true,
-      badge: 'Salud Dental',
-      price_one_time: 5990,
-      price_autoship: 5391,
-      stock_quantity: 300,
-    },
-    {
-      name: 'Pedigree Dentastix 7 Unidades',
-      slug: 'pedigree-dentastix-7-unidades',
-      image_url: '/images/products/pedigree-dentastix-7-unidades.png',
-      description: 'Snack dental en forma de estrella para perros. Triple accion: limpia dientes, reduce sarro y refresca el aliento.',
-      category_id: catSnack.id,
-      sku: 'PED-DEN-7',
-      pet_type: 'dog',
-      weight_kg: 0.1,
-      is_published: true,
-      badge: 'Dental',
-      price_one_time: 4990,
-      price_autoship: 4491,
-      stock_quantity: 400,
-    },
-    {
-      name: 'Greenies Snack Dental Gato',
-      slug: 'greenies-snack-dental-gato-113g',
-      image_url: '/images/products/greenies-snack-dental-gato-113g.png',
-      description: 'Snack dental premium para gatos. Textura unica que limpia los dientes. Con clorofila natural para aliento fresco.',
-      category_id: catSnack.id,
-      sku: 'GRE-GAT-113',
-      pet_type: 'cat',
-      weight_kg: 0.113,
-      is_published: true,
-      badge: 'Premium',
-      price_one_time: 6990,
-      price_autoship: 6291,
-      stock_quantity: 150,
-    },
-    // === ACCESORIOS (3) ===
-    {
-      name: 'Comedero Acero Inoxidable + Base Bambu',
-      slug: 'comedero-acero-bambu-set',
-      image_url: '/images/products/comedero-acero-bambu-set.png',
-      description: 'Set de comedero y bebedero de acero inoxidable con base de bambu natural. Antideslizante, facil de limpiar. Diseno escandinavo minimalista.',
-      category_id: catAccesorio.id,
-      sku: 'ACC-COM-BAM',
-      pet_type: 'both',
-      weight_kg: 0.8,
-      is_published: true,
-      badge: 'Diseno',
-      price_one_time: 18990,
-      price_autoship: 17091,
-      stock_quantity: 75,
-    },
-    {
-      name: 'Cama Ortopedica Memory Foam Mediana',
-      slug: 'cama-ortopedica-memory-foam-mediana',
-      image_url: '/images/products/cama-ortopedica-memory-foam-mediana.png',
-      description: 'Cama ortopedica con espuma viscoelastica. Alivia presion en articulaciones. Funda removible y lavable. Ideal para perros senior.',
-      category_id: catAccesorio.id,
-      sku: 'ACC-CAM-MEM',
-      pet_type: 'dog',
-      weight_kg: 3.5,
-      is_published: true,
-      is_bestseller: true,
-      badge: 'Ortopedica',
-      price_one_time: 49990,
-      price_autoship: 44991,
-      stock_quantity: 40,
-    },
+    // === GATOS - ACCESORIOS (1) ===
     {
       name: 'Fuente de Agua Ceramica para Gato',
       slug: 'fuente-agua-ceramica-gato',
       image_url: '/images/products/fuente-agua-ceramica-gato.png',
       description: 'Fuente de agua ceramica con filtro de carbon. 3 caudales ajustables. Promueve la hidratacion. Silenciosa y facil de limpiar.',
-      category_id: catAccesorio.id,
+      category_id: accesoriosGato.id,
       sku: 'ACC-FUE-CER',
       pet_type: 'cat',
       weight_kg: 1.2,
@@ -292,59 +410,13 @@ async function main() {
       price_autoship: 31491,
       stock_quantity: 55,
     },
-    // === CLINICO (2) ===
-    {
-      name: 'Hills Prescription Diet i/d Digestive Care',
-      slug: 'hills-prescription-diet-id-digestive-1-5kg',
-      image_url: '/images/products/hills-prescription-diet-id-digestive-1-5kg.png',
-      description: 'Alimento clinico para perros con problemas digestivos. Formula de facil digestion con prebioticos y electrolitos. Solo bajo recomendacion veterinaria.',
-      category_id: catClinico.id,
-      sku: 'HIL-ID-1.5',
-      pet_type: 'dog',
-      weight_kg: 1.5,
-      is_published: true,
-      badge: 'Clinico',
-      price_one_time: 22990,
-      price_autoship: 20691,
-      stock_quantity: 30,
-    },
-    {
-      name: 'Royal Canin Gastro Intestinal',
-      slug: 'royal-canin-gastro-intestinal-2kg',
-      image_url: '/images/products/royal-canin-gastro-intestinal-2kg.png',
-      description: 'Formula clinica para trastornos gastrointestinales. Alta digestibilidad y contenido equilibrado de fibras. Exclusivo bajo recomendacion vet.',
-      category_id: catClinico.id,
-      sku: 'RC-GAS-2',
-      pet_type: 'dog',
-      weight_kg: 2,
-      is_published: true,
-      badge: 'Veterinario',
-      price_one_time: 25990,
-      price_autoship: 23391,
-      stock_quantity: 35,
-    },
-    // === NUTRICION NATURAL (3) ===
-    {
-      name: 'Caldo de Colageno Natural para Perros',
-      slug: 'caldo-colageno-natural-perros-1l',
-      image_url: '/images/products/caldo-colageno-natural-perros-1l.png',
-      description: 'Caldo de huesos 100% natural. Rico en colageno, glucosamina y condroitina. Beneficioso para articulaciones, piel y digestion. Sin conservantes.',
-      category_id: catNutricion.id,
-      sku: 'NUT-CAL-1L',
-      pet_type: 'dog',
-      weight_kg: 1,
-      is_published: true,
-      badge: 'Superfood',
-      price_one_time: 12990,
-      price_autoship: 11691,
-      stock_quantity: 80,
-    },
+    // === SNACKS LIOFILIZADOS (both) ===
     {
       name: 'Snacks Liofilizados Salmon 100% Natural',
       slug: 'snacks-liofilizados-salmon-100g',
       image_url: '/images/products/snacks-liofilizados-salmon-100g.png',
-      description: 'Snacks de salmon liofilizado. Unico ingrediente: salmon salvaje. Alto en Omega-3, sin conservantes ni aditivos. Entrenamiento y premiun.',
-      category_id: catNutricion.id,
+      description: 'Snacks de salmon liofilizado. Unico ingrediente: salmon salvaje. Alto en Omega-3, sin conservantes ni aditivos. Entrenamiento y premium.',
+      category_id: snackPerro.id,
       sku: 'NUT-LIO-SAL',
       pet_type: 'both',
       weight_kg: 0.1,
@@ -354,21 +426,6 @@ async function main() {
       price_one_time: 9990,
       price_autoship: 8991,
       stock_quantity: 120,
-    },
-    {
-      name: 'Aceite de Salmon Omega-3 para Mascotas',
-      slug: 'aceite-salmon-omega3-mascotas-500ml',
-      image_url: '/images/products/aceite-salmon-omega3-mascotas-500ml.png',
-      description: 'Aceite puro de salmon chileno. Rico en Omega-3, EPA y DHA. Mejora pelaje, piel y salud articular. Sin colorantes ni saborizantes.',
-      category_id: catNutricion.id,
-      sku: 'NUT-ACE-500',
-      pet_type: 'both',
-      weight_kg: 0.5,
-      is_published: true,
-      badge: 'Suplemento',
-      price_one_time: 15990,
-      price_autoship: 14391,
-      stock_quantity: 90,
     },
   ];
 
@@ -401,7 +458,7 @@ async function main() {
       is_published: true,
     },
     {
-      product_id: allProducts[4].id,
+      product_id: allProducts[12].id,
       rating: 5,
       title: 'Mi gato castrado por fin come bien',
       content: 'Desde que cambie a N&D Prime mi gato no ha tenido problemas urinarios. El veterinario quedo impresionado con sus examenes.',
@@ -411,7 +468,7 @@ async function main() {
       is_published: true,
     },
     {
-      product_id: allProducts[5].id,
+      product_id: allProducts[13].id,
       rating: 4,
       title: 'Buen alimento, precio justo',
       content: 'Mis dos gatos comen Nomade hace un ano. Buen pelo, buena energia. Lo unico que mejoraria es el packaging.',
@@ -421,7 +478,7 @@ async function main() {
       is_published: true,
     },
     {
-      product_id: allProducts[14].id,
+      product_id: allProducts[9].id,
       rating: 5,
       title: 'Mi perro senior duerme como un angel',
       content: 'Compre esta cama para mi pastor aleman de 11 anos. Desde que la tiene, duerme toda la noche sin quejarse. La espuma viscoelastica es increible.',
@@ -431,7 +488,7 @@ async function main() {
       is_published: true,
     },
     {
-      product_id: allProducts[19].id,
+      product_id: allProducts[22].id,
       rating: 5,
       title: 'Los snacks mas naturales que he visto',
       content: 'Un solo ingrediente: salmon. Mis gatos vuelven locos por estos snacks. Perfectos para entrenamiento.',
@@ -441,7 +498,7 @@ async function main() {
       is_published: true,
     },
     {
-      product_id: allProducts[12].id,
+      product_id: allProducts[17].id,
       rating: 4,
       title: 'Mi gato lo acepto bien',
       content: 'No es facil encontrar snacks dentales que los gatos acepten. Estos Greenies si les gustaron. Se nota el aliento mas fresco.',

@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { ProductsModule } from './products/products.module';
+import { CategoriesModule } from './categories/categories.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { PrismaService } from './prisma/prisma.service';
@@ -12,6 +13,7 @@ import { PrismaService } from './prisma/prisma.service';
       limit: 10,
     }]),
     ProductsModule,
+    CategoriesModule,
     AuthModule,
     UsersModule,
   ],

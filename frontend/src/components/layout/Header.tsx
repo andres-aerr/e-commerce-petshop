@@ -19,56 +19,44 @@ interface NavItem {
 const navItems: NavItem[] = [
   {
     label: 'Perros',
-    href: '/products?pet_type=dog',
+    href: '/products?category=alimento-perro',
     subcategories: [
-      { label: 'Alimentos', href: '/products?pet_type=dog&category=alimentos-secos-perro' },
-      { label: 'Snacks', href: '/products?pet_type=dog&category=snacks' },
-      { label: 'Juguetes', href: '/products?pet_type=dog&category=juguetes' },
-      { label: 'Accesorios', href: '/products?pet_type=dog&category=accesorios' },
+      { label: 'Alimentos', href: '/products?category=alimento-perro' },
+      { label: 'Snacks', href: '/products?category=snack-perro' },
+      { label: 'Juguetes', href: '/products?category=juguetes-perro' },
+      { label: 'Accesorios', href: '/products?category=accesorios-perro' },
     ],
   },
   {
     label: 'Gatos',
-    href: '/products?pet_type=cat',
+    href: '/products?category=alimento-gato',
     subcategories: [
-      { label: 'Alimentos', href: '/products?pet_type=cat&category=alimentos-secos-gato' },
-      { label: 'Arenas', href: '/products?pet_type=cat&category=arenas-sanitarias' },
-      { label: 'Juguetes', href: '/products?pet_type=cat&category=juguetes' },
-      { label: 'Accesorios', href: '/products?pet_type=cat&category=accesorios' },
+      { label: 'Alimentos', href: '/products?category=alimento-gato' },
+      { label: 'Snacks', href: '/products?category=snack-gato' },
+      { label: 'Areneros', href: '/products?category=areneros-gato' },
+      { label: 'Juguetes', href: '/products?category=juguetes-gato' },
+      { label: 'Accesorios', href: '/products?category=accesorios-gato' },
     ],
   },
   {
     label: 'Mascotas Pequeñas',
-    href: '/products?pet_type=small_pet',
+    href: '/products?category=alimento-mascotas-pequenas',
     subcategories: [
-      { label: 'Alimentos', href: '/products?pet_type=small_pet&category=snacks' },
-      { label: 'Snacks', href: '/products?pet_type=small_pet&category=snacks' },
-      { label: 'Juguetes', href: '/products?pet_type=small_pet&category=juguetes' },
-      { label: 'Accesorios', href: '/products?pet_type=small_pet&category=accesorios' },
-    ],
-  },
-  {
-    label: 'Peces',
-    href: '/products?pet_type=fish',
-    subcategories: [
-      { label: 'Alimentos', href: '/products?pet_type=fish&category=snacks' },
-      { label: 'Accesorios', href: '/products?pet_type=fish&category=accesorios' },
+      { label: 'Alimentos', href: '/products?category=alimento-mascotas-pequenas' },
+      { label: 'Snacks', href: '/products?category=snack-mascotas-pequenas' },
+      { label: 'Juguetes', href: '/products?category=juguetes-mascotas-pequenas' },
+      { label: 'Accesorios', href: '/products?category=accesorios-mascotas-pequenas' },
     ],
   },
   {
     label: 'Aves',
-    href: '/products?pet_type=bird',
+    href: '/products?category=alimento-aves',
     subcategories: [
-      { label: 'Alimentos', href: '/products?pet_type=bird&category=snacks' },
-      { label: 'Snacks', href: '/products?pet_type=bird&category=snacks' },
-      { label: 'Juguetes', href: '/products?pet_type=bird&category=juguetes' },
-      { label: 'Accesorios', href: '/products?pet_type=bird&category=accesorios' },
+      { label: 'Alimentos', href: '/products?category=alimento-aves' },
+      { label: 'Snacks', href: '/products?category=snack-aves' },
+      { label: 'Juguetes', href: '/products?category=juguetes-aves' },
+      { label: 'Accesorios', href: '/products?category=accesorios-aves' },
     ],
-  },
-  {
-    label: 'Nutrición Natural',
-    href: '/products?category=nutricion-natural',
-    subcategories: [],
   },
 ];
 

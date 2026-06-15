@@ -5,6 +5,8 @@ export interface AdminProduct {
   description: string | null;
   category_id: string;
   category_name: string;
+  subcategory_id: string | null;
+  subcategory_name: string | null;
   pet_type: 'dog' | 'cat' | 'both';
   image_url: string | null;
   images_json: string | null;

@@ -1,10 +1,11 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Plus, Pencil, Trash2, Eye, EyeOff } from 'lucide-react';
+import { Plus, Pencil, Trash2, Search } from 'lucide-react';
 import type { AdminProduct } from '@/lib/admin';
-import { getProducts, deleteProduct, CATEGORY_OPTIONS } from '@/lib/admin';
+import { getProducts, deleteProduct } from '@/lib/admin';
+import { getCategories, type Category } from '@/lib/api';
 import { formatCurrency } from '@/lib/admin/format';
 import DataTable from '@/components/admin/DataTable';
 import StatusBadge from '@/components/admin/StatusBadge';
@@ -13,15 +14,48 @@ import ConfirmModal from '@/components/admin/ConfirmModal';
 export default function ProductosPage() {
   const router = useRouter();
   const [products, setProducts] = useState<AdminProduct[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
   const [deleteId, setDeleteId] = useState<string | null>(null);
 
+  const [search, setSearch] = useState('');
+  const [categoryFilter, setCategoryFilter] = useState('');
+  const [subcategoryFilter, setSubcategoryFilter] = useState('');
+
+  const selectedCategoryChildren = useMemo(
+    () => categories.find((c) => c.name === categoryFilter)?.children ?? [],
+    [categories, categoryFilter]
+  );
+
+  const filteredProducts = useMemo(() => {
+    return products.filter((p) => {
+      if (categoryFilter && p.category_name !== categoryFilter) return false;
+      if (subcategoryFilter && p.subcategory_name !== subcategoryFilter) return false;
+      if (search) {
+        const q = search.toLowerCase();
+        if (
+          !p.name.toLowerCase().includes(q) &&
+          !p.sku.toLowerCase().includes(q)
+        ) return false;
+      }
+      return true;
+    });
+  }, [products, categoryFilter, subcategoryFilter, search]);
+
   useEffect(() => {
-    getProducts().then((data) => {
-      setProducts(data);
+    Promise.all([
+      getProducts(),
+      getCategories().catch(() => []),
+    ]).then(([productData, categoryData]) => {
+      setProducts(productData);
+      setCategories(categoryData);
       setLoading(false);
     });
   }, []);
+
+  useEffect(() => {
+    setSubcategoryFilter('');
+  }, [categoryFilter]);
 
   async function handleDelete() {
     if (!deleteId) return;
@@ -47,7 +81,7 @@ export default function ProductosPage() {
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-h2 text-primary">Productos</h1>
-          <p className="text-sm text-gray-dark mt-1">{products.length} productos registrados</p>
+          <p className="text-sm text-gray-dark mt-1">{filteredProducts.length} productos</p>
         </div>
         <button
           onClick={() => router.push('/admin/productos/nuevo')}
@@ -56,6 +90,42 @@ export default function ProductosPage() {
           <Plus className="w-4 h-4" />
           Nuevo producto
         </button>
+      </div>
+
+      <div className="flex items-center gap-3 mb-4">
+        <div className="relative flex-1 max-w-xs">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-dark" />
+          <input
+            type="text"
+            placeholder="Buscar por nombre o SKU..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="w-full pl-9 pr-3 py-2 border border-gray-light rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent"
+          />
+        </div>
+
+        <select
+          value={categoryFilter}
+          onChange={(e) => setCategoryFilter(e.target.value)}
+          className="px-3 py-2 border border-gray-light rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent bg-white"
+        >
+          <option value="">Todas las categorías</option>
+          {categories.map((c) => (
+            <option key={c.id} value={c.name}>{c.name}</option>
+          ))}
+        </select>
+
+        <select
+          value={subcategoryFilter}
+          onChange={(e) => setSubcategoryFilter(e.target.value)}
+          className="px-3 py-2 border border-gray-light rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent bg-white disabled:opacity-50"
+          disabled={!categoryFilter}
+        >
+          <option value="">Todas las subcategorías</option>
+          {selectedCategoryChildren.map((s) => (
+            <option key={s.id} value={s.name}>{s.name}</option>
+          ))}
+        </select>
       </div>
 
       <DataTable
@@ -83,6 +153,19 @@ export default function ProductosPage() {
               <div>
                 <p className="font-medium text-primary">{p.name}</p>
                 <p className="text-xs text-gray-dark">SKU: {p.sku}</p>
+              </div>
+            ),
+          },
+          {
+            key: 'category_name',
+            label: 'Categoría',
+            sortable: true,
+            render: (p: AdminProduct) => (
+              <div>
+                <p className="text-sm text-primary">{p.category_name}</p>
+                {p.subcategory_name && (
+                  <p className="text-xs text-gray-dark">{p.subcategory_name}</p>
+                )}
               </div>
             ),
           },
@@ -167,10 +250,8 @@ export default function ProductosPage() {
             ),
           },
         ]}
-        data={products}
+        data={filteredProducts}
         keyExtractor={(p) => p.id}
-        searchable
-        searchKeys={['name', 'sku']}
         onRowClick={(p) => router.push(`/admin/productos/${p.id}`)}
         pageSize={15}
       />

@@ -16,9 +16,9 @@ const extendedShowcases = [
     color: '#FDE4D4',
     bannerImage: '/images/categorias/mascotas-pequenas-categoria.png',
     categories: [
-      { slug: 'snacks', label: 'Alimentos', icon: 'food', image: '/images/iconos-card/comida-gato.png' },
-      { slug: 'juguetes', label: 'Juguetes', icon: 'toy', image: '/images/iconos-card/juguete-gato.png' },
-      { slug: 'accesorios', label: 'Accesorios', icon: 'collar', image: '/images/iconos-card/accesorio-perro.png' },
+      { slug: 'alimento-mascotas-pequenas', label: 'Alimentos', icon: 'food', image: '/images/iconos-card/comida-gato.png' },
+      { slug: 'juguetes-mascotas-pequenas', label: 'Juguetes', icon: 'toy', image: '/images/iconos-card/juguete-gato.png' },
+      { slug: 'accesorios-mascotas-pequenas', label: 'Accesorios', icon: 'collar', image: '/images/iconos-card/accesorio-perro.png' },
     ],
   },
   {
@@ -28,8 +28,8 @@ const extendedShowcases = [
     color: '#DCE8F8',
     bannerImage: '/images/categorias/peces-categoria.png',
     categories: [
-      { slug: 'snacks', label: 'Alimentos', icon: 'food', image: '/images/iconos-card/comida-gato.png' },
-      { slug: 'accesorios', label: 'Accesorios', icon: 'collar', image: '/images/iconos-card/accesorio-perro.png' },
+      { slug: 'snack-mascotas-pequenas', label: 'Alimentos', icon: 'food', image: '/images/iconos-card/comida-gato.png' },
+      { slug: 'accesorios-mascotas-pequenas', label: 'Accesorios', icon: 'collar', image: '/images/iconos-card/accesorio-perro.png' },
     ],
   },
   {
@@ -39,9 +39,9 @@ const extendedShowcases = [
     color: '#F8F0D8',
     bannerImage: '/images/categorias/aves-categoria.png',
     categories: [
-      { slug: 'snacks', label: 'Alimentos', icon: 'food', image: '/images/iconos-card/comida-gato.png' },
-      { slug: 'juguetes', label: 'Juguetes', icon: 'toy', image: '/images/iconos-card/juguete-gato.png' },
-      { slug: 'accesorios', label: 'Accesorios', icon: 'collar', image: '/images/iconos-card/accesorio-perro.png' },
+      { slug: 'alimento-aves', label: 'Alimentos', icon: 'food', image: '/images/iconos-card/comida-gato.png' },
+      { slug: 'juguetes-aves', label: 'Juguetes', icon: 'toy', image: '/images/iconos-card/juguete-gato.png' },
+      { slug: 'accesorios-aves', label: 'Accesorios', icon: 'collar', image: '/images/iconos-card/accesorio-perro.png' },
     ],
   },
 ];
@@ -60,14 +60,24 @@ const petTypes = [
 ];
 
 const categories = [
-  { label: 'Todas las categorias', value: '' },
-  { label: 'Alimentos Perro', value: 'alimentos-secos-perro' },
-  { label: 'Alimentos Gato', value: 'alimentos-secos-gato' },
-  { label: 'Arenas Sanitarias', value: 'arenas-sanitarias' },
-  { label: 'Snacks y Premios', value: 'snacks' },
-  { label: 'Accesorios', value: 'accesorios' },
-  { label: 'Prescripcion Clinica', value: 'prescripcion-clinica' },
-  { label: 'Nutricion Natural', value: 'nutricion-natural' },
+  { label: 'Todas las categorías', value: '' },
+  { label: 'Perros - Alimento', value: 'alimento-perro' },
+  { label: 'Perros - Snack', value: 'snack-perro' },
+  { label: 'Perros - Juguetes', value: 'juguetes-perro' },
+  { label: 'Perros - Accesorios', value: 'accesorios-perro' },
+  { label: 'Gatos - Alimento', value: 'alimento-gato' },
+  { label: 'Gatos - Snack', value: 'snack-gato' },
+  { label: 'Gatos - Juguetes', value: 'juguetes-gato' },
+  { label: 'Gatos - Accesorios', value: 'accesorios-gato' },
+  { label: 'Gatos - Areneros', value: 'areneros-gato' },
+  { label: 'Mascotas pequeñas - Alimento', value: 'alimento-mascotas-pequenas' },
+  { label: 'Mascotas pequeñas - Snack', value: 'snack-mascotas-pequenas' },
+  { label: 'Mascotas pequeñas - Juguetes', value: 'juguetes-mascotas-pequenas' },
+  { label: 'Mascotas pequeñas - Accesorios', value: 'accesorios-mascotas-pequenas' },
+  { label: 'Aves - Alimento', value: 'alimento-aves' },
+  { label: 'Aves - Snack', value: 'snack-aves' },
+  { label: 'Aves - Juguetes', value: 'juguetes-aves' },
+  { label: 'Aves - Accesorios', value: 'accesorios-aves' },
 ];
 
 const petName: Record<string, string> = {
@@ -76,10 +86,10 @@ const petName: Record<string, string> = {
 };
 
 const categoryBannerMap: Record<string, string> = {
-  'dog-alimentos-secos-perro': '/images/banners/banner-perro-categorias-alimentos.png',
-  'dog-snacks': '/images/banners/banner-perro-categorias-snack.png',
-  'dog-juguetes': '/images/banners/banner-perro-categorias-juguetes.png',
-  'dog-accesorios': '/images/banners/banner-perro-categorias-accesorios.png',
+  'dog-alimento-perro': '/images/banners/banner-perro-categorias-alimentos.png',
+  'dog-snack-perro': '/images/banners/banner-perro-categorias-snack.png',
+  'dog-juguetes-perro': '/images/banners/banner-perro-categorias-juguetes.png',
+  'dog-accesorios-perro': '/images/banners/banner-perro-categorias-accesorios.png',
 };
 
 function ProductsContent() {

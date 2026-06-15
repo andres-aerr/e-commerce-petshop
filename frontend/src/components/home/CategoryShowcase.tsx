@@ -14,10 +14,10 @@ export const showcases = [
     color: '#DCF5DC',
     bannerImage: '/images/banners/banner-perro-categorias.png',
     categories: [
-      { slug: 'alimentos-secos-perro', label: 'Alimentos', icon: 'food', image: '/images/iconos-card/comida-gato.png' },
-      { slug: 'snacks', label: 'Snacks', icon: 'treat', image: '/images/iconos-card/snack-perro.png', petOnly: 'dog' },
-      { slug: 'juguetes', label: 'Juguetes', icon: 'toy', image: '/images/iconos-card/juguete-gato.png' },
-      { slug: 'accesorios', label: 'Accesorios', icon: 'collar', image: '/images/iconos-card/accesorio-perro.png' },
+      { slug: 'alimento-perro', label: 'Alimentos', icon: 'food', image: '/images/iconos-card/comida-gato.png' },
+      { slug: 'snack-perro', label: 'Snacks', icon: 'treat', image: '/images/iconos-card/snack-perro.png' },
+      { slug: 'juguetes-perro', label: 'Juguetes', icon: 'toy', image: '/images/iconos-card/juguete-gato.png' },
+      { slug: 'accesorios-perro', label: 'Accesorios', icon: 'collar', image: '/images/iconos-card/accesorio-perro.png' },
     ],
   },
   {
@@ -27,10 +27,10 @@ export const showcases = [
     color: '#F5F0FA',
     bannerImage: '/images/banners/banner-gato-categorias.png',
     categories: [
-      { slug: 'alimentos-secos-gato', label: 'Alimentos', icon: 'food', image: '/images/iconos-card/comida-gato.png' },
-      { slug: 'arenas-sanitarias', label: 'Arenas', icon: 'litter', image: '/images/iconos-card/arenero-gato.png' },
-      { slug: 'juguetes', label: 'Juguetes', icon: 'toy', image: '/images/iconos-card/juguete-gato.png' },
-      { slug: 'accesorios', label: 'Accesorios', icon: 'collar', image: '/images/iconos-card/accesorio-gato.png' },
+      { slug: 'alimento-gato', label: 'Alimentos', icon: 'food', image: '/images/iconos-card/comida-gato.png' },
+      { slug: 'areneros-gato', label: 'Areneros', icon: 'litter', image: '/images/iconos-card/arenero-gato.png' },
+      { slug: 'juguetes-gato', label: 'Juguetes', icon: 'toy', image: '/images/iconos-card/juguete-gato.png' },
+      { slug: 'accesorios-gato', label: 'Accesorios', icon: 'collar', image: '/images/iconos-card/accesorio-gato.png' },
     ],
   },
 ];

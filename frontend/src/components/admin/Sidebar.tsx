@@ -31,24 +31,24 @@ export default function Sidebar() {
   return (
     <aside
       className={clsx(
-        'bg-primary flex flex-col transition-all duration-300 shrink-0',
+        'bg-accent/10 flex flex-col transition-all duration-300 shrink-0 h-screen sticky top-0',
         collapsed ? 'w-16' : 'w-60'
       )}
     >
-      <div className="flex items-center h-16 px-4 border-b border-white/10">
+      <div className="flex items-center h-16 px-4 border-b border-accent/20">
         <Link href="/admin" className="flex items-center gap-2 min-w-0">
           <div className="w-8 h-8 rounded-lg bg-accent flex items-center justify-center text-white font-bold text-sm shrink-0">
             S
           </div>
           {!collapsed && (
-            <span className="text-white font-semibold text-base truncate">Savia Admin</span>
+            <span className="text-accent font-semibold text-base truncate">Savia Admin</span>
           )}
         </Link>
       </div>
 
       <nav className="flex-1 py-4 space-y-1 px-2">
         {NAV_ITEMS.map((item) => {
-          const isActive = pathname === item.href || pathname.startsWith(item.href + '/');
+          const isActive = pathname === item.href || (item.href !== '/admin' && pathname.startsWith(item.href + '/'));
           return (
             <Link
               key={item.href}
@@ -56,8 +56,8 @@ export default function Sidebar() {
               className={clsx(
                 'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors',
                 isActive
-                  ? 'bg-accent/20 text-accent'
-                  : 'text-white/70 hover:text-white hover:bg-white/10'
+                  ? 'bg-accent text-white font-semibold'
+                  : 'bg-accent/5 text-accent/70 hover:bg-accent/20'
               )}
             >
               <item.icon className="w-5 h-5 shrink-0" />
@@ -67,10 +67,10 @@ export default function Sidebar() {
         })}
       </nav>
 
-      <div className="p-3 border-t border-white/10">
+      <div className="p-3 border-t border-accent/20">
         <button
           onClick={() => setCollapsed(!collapsed)}
-          className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-white/50 hover:text-white hover:bg-white/10 transition-colors text-sm"
+          className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-accent/50 hover:text-accent hover:bg-accent/10 transition-colors text-sm"
         >
           {collapsed ? <ChevronRight className="w-4 h-4" /> : <ChevronLeft className="w-4 h-4" />}
           {!collapsed && <span>Colapsar</span>}

@@ -1,10 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ArrowLeft, Save } from 'lucide-react';
 import type { AdminProduct } from '@/lib/admin';
-import { createProduct, updateProduct, CATEGORY_OPTIONS } from '@/lib/admin';
+import { createProduct, updateProduct } from '@/lib/admin';
+import { getCategories, type Category } from '@/lib/api';
 import { formatCurrency, slugify } from '@/lib/admin/format';
 import ImageUploader from '@/components/admin/ImageUploader';
 
@@ -16,11 +17,13 @@ export default function ProductForm({ product }: ProductFormProps) {
   const router = useRouter();
   const isEditing = !!product;
   const [saving, setSaving] = useState(false);
+  const [categories, setCategories] = useState<Category[]>([]);
   const [form, setForm] = useState({
     name: product?.name ?? '',
     slug: product?.slug ?? '',
     description: product?.description ?? '',
-    category_id: product?.category_id ?? 'cat-1',
+    category_name: product?.category_name ?? 'Perros',
+    subcategory_name: product?.subcategory_name ?? '',
     pet_type: product?.pet_type ?? 'dog',
     price_one_time: product?.price_one_time ?? 0,
     price_autoship: product?.price_autoship ?? 0,
@@ -34,6 +37,13 @@ export default function ProductForm({ product }: ProductFormProps) {
     is_bestseller: product?.is_bestseller ?? false,
     image_url: product?.image_url ?? '',
   });
+
+  useEffect(() => {
+    getCategories().then(setCategories).catch(() => {});
+  }, []);
+
+  const selectedCategory = categories.find((c) => c.name === form.category_name);
+  const subcategoryOptions = selectedCategory?.children ?? [];
 
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -65,6 +75,8 @@ export default function ProductForm({ product }: ProductFormProps) {
     const data = {
       ...form,
       description: form.description || null,
+      category_name: form.category_name,
+      subcategory_name: form.subcategory_name || null,
       cost_price: form.cost_price || null,
       badge: form.badge || null,
       weight_kg: form.weight_kg || null,
@@ -168,15 +180,36 @@ export default function ProductForm({ product }: ProductFormProps) {
             <div>
               <label className="block text-sm font-medium text-primary mb-1.5">Categoría</label>
               <select
-                name="category_id"
-                value={form.category_id}
+                name="category_name"
+                value={form.category_name}
                 onChange={handleChange}
                 className="w-full px-3 py-2 border border-gray-light rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent bg-white"
               >
-                {CATEGORY_OPTIONS.map((cat) => (
-                  <option key={cat.id} value={cat.id}>
-                    {cat.name}
-                  </option>
+                {categories.map((cat) => (
+                  <option key={cat.id} value={cat.name}>{cat.name}</option>
+                ))}
+                {categories.length === 0 && (
+                  <>
+                    <option value="Perros">Perros</option>
+                    <option value="Gatos">Gatos</option>
+                    <option value="Mascotas pequeñas">Mascotas pequeñas</option>
+                    <option value="Aves">Aves</option>
+                  </>
+                )}
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-primary mb-1.5">Subcategoría</label>
+              <select
+                name="subcategory_name"
+                value={form.subcategory_name}
+                onChange={handleChange}
+                className="w-full px-3 py-2 border border-gray-light rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent bg-white"
+              >
+                <option value="">Sin subcategoría</option>
+                {subcategoryOptions.map((s) => (
+                  <option key={s.id} value={s.name}>{s.name}</option>
                 ))}
               </select>
             </div>

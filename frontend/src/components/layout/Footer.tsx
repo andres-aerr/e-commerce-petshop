@@ -2,11 +2,11 @@ const footerLinks = [
   {
     title: 'Productos',
     links: [
-      { label: 'Alimentos para Perros', href: '/products?pet_type=dog' },
-      { label: 'Alimentos para Gatos', href: '/products?pet_type=cat' },
-      { label: 'Arenas Sanitarias', href: '/products?category=arenas-sanitarias' },
-      { label: 'Accesorios', href: '/products?category=accesorios' },
-      { label: 'Nutricion Natural', href: '/products?category=nutricion-natural' },
+      { label: 'Alimentos para Perros', href: '/products?category=alimento-perro' },
+      { label: 'Alimentos para Gatos', href: '/products?category=alimento-gato' },
+      { label: 'Areneros para Gatos', href: '/products?category=areneros-gato' },
+      { label: 'Accesorios', href: '/products?category=accesorios-perro' },
+      { label: 'Snacks', href: '/products?category=snack-perro' },
     ],
   },
   {
