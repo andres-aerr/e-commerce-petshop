@@ -39,3 +39,4 @@ coverage/
 
 # Prisma
 prisma/migrations/
+.playwright-mcp/
