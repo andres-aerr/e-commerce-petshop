@@ -144,7 +144,7 @@ export default function Header() {
             >
               <Search size={20} />
             </button>
-            {user ? (
+            {hydrated && user ? (
               <div className="relative">
                 <button
                   onClick={() => setUserMenuOpen(!userMenuOpen)}
@@ -180,7 +180,7 @@ export default function Header() {
               aria-label="Carrito"
             >
               <ShoppingCart size={20} />
-              {totalItems > 0 && (
+              {hydrated && totalItems > 0 && (
                 <span className="absolute -top-0.5 -right-0.5 bg-white text-accent text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
                   {totalItems}
                 </span>

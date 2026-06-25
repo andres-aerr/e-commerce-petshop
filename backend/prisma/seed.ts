@@ -488,7 +488,7 @@ async function main() {
       is_published: true,
     },
     {
-      product_id: allProducts[22].id,
+      product_id: allProducts[21].id,
       rating: 5,
       title: 'Los snacks mas naturales que he visto',
       content: 'Un solo ingrediente: salmon. Mis gatos vuelven locos por estos snacks. Perfectos para entrenamiento.',
@@ -498,7 +498,7 @@ async function main() {
       is_published: true,
     },
     {
-      product_id: allProducts[17].id,
+      product_id: allProducts[16].id,
       rating: 4,
       title: 'Mi gato lo acepto bien',
       content: 'No es facil encontrar snacks dentales que los gatos acepten. Estos Greenies si les gustaron. Se nota el aliento mas fresco.',
