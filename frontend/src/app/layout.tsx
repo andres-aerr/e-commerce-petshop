@@ -11,7 +11,7 @@ const plusJakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: 'Savia | Nutricion honesta para tu mascota',
+  title: 'TuMarca | Nutricion honesta para tu mascota',
   description:
     'Alimento premium, entrega sin friccion y servicio que te quita preocupaciones.',
 };

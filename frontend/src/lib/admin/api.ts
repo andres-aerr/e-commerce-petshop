@@ -541,8 +541,8 @@ let mockContents: AdminContent[] = [
   {
     id: 'c8',
     key: 'footer_about',
-    label: 'Footer - Texto sobre Savia',
-    value: 'Savia es una marca chilena de nutrición honesta para mascotas.',
+    label: 'Footer - Texto sobre TuMarca',
+    value: 'TuMarca es una marca chilena de nutrición honesta para mascotas.',
     section: 'Footer',
     updated_at: '2025-06-01T00:00:00Z',
   },

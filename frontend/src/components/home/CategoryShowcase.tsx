@@ -132,16 +132,70 @@ export function ShowcaseBlock({ petType, title, icon, color, bannerImage, catego
 
   return (
     <div>
+      {/* Mobile layout */}
       <div
-        className="rounded-2xl p-5 md:p-6 flex items-center gap-3 mb-6 relative"
-        style={{ backgroundColor: color, minHeight: bannerImage ? (petType === 'dog' ? '180px' : '130px') : undefined }}
+        className="rounded-2xl pt-4 pb-5 px-5 md:hidden relative"
+        style={{ backgroundColor: color }}
+      >
+        <div className="flex items-start justify-between mb-3 max-w-xs">
+          <div className="text-left">
+            <p className="text-lg leading-tight text-primary/60">{title.split(' ').slice(0, -1).join(' ')}</p>
+            <h2 className="text-6xl font-extrabold leading-tight" style={petType === 'cat' ? { color: '#6B4F8A' } : petType === 'dog' ? { color: '#2E7D32' } : undefined}>
+              {title.split(' ').at(-1)}
+            </h2>
+          </div>
+          {bannerImage && (
+            <div className="relative w-36 h-36 -mr-6 -mt-12 shrink-0">
+              <Image src={bannerImage} alt="" fill className="object-contain object-right-top" />
+            </div>
+          )}
+        </div>
+        <div className="grid grid-cols-2 gap-3 max-w-xs">
+          {categories.map((cat) => {
+            const c = cat as any;
+            if (c.image) {
+              return (
+                <a
+                  key={cat.slug}
+                  href={`/products?pet_type=${petType}&category=${cat.slug}`}
+                  className={`glass-category-card flex flex-col items-center justify-center gap-0.5 font-sans text-xs font-semibold w-full h-28 ${cat.slug === activeCategory ? 'glass-category-card--active' : 'text-primary'}`}
+                >
+                  <div className="relative w-12 h-12">
+                    <Image src={c.image} alt="" fill className="object-contain" />
+                  </div>
+                  <span className="text-center leading-tight">{cat.label}</span>
+                </a>
+              );
+            }
+            return (
+              <a
+                key={cat.slug}
+                href={`/products?pet_type=${petType}&category=${cat.slug}`}
+                className={`glass-category-card flex flex-col items-center justify-center gap-1 font-sans text-xs font-semibold w-full h-28 ${cat.slug === activeCategory ? 'glass-category-card--active' : 'text-primary'}`}
+              >
+                <div className="w-9 h-9 rounded-full bg-accent/10 flex items-center justify-center text-accent">
+                  {iconSvgs[c.icon as keyof typeof iconSvgs]}
+                </div>
+                <span className="text-center leading-tight">{cat.label}</span>
+              </a>
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="mb-6 md:hidden" /> {/* spacer */}
+
+      {/* Desktop layout */}
+      <div
+        className="hidden md:flex rounded-2xl p-5 md:p-6 items-center gap-3 mb-6 relative"
+        style={{ backgroundColor: color }}
       >
         {!bannerImage && <span className="text-2xl shrink-0">{icon}</span>}
         <div className="shrink-0">
           <p className="text-sm leading-tight text-primary/70">{title.split(' ').slice(0, -1).join(' ')}</p>
-          <h2 className="text-6xl md:text-8xl font-extrabold leading-tight" style={petType === 'cat' ? { color: '#6B4F8A' } : petType === 'dog' ? { color: '#2E7D32' } : undefined}>{title.split(' ').at(-1)}</h2>
+          <h2 className="text-4xl md:text-6xl lg:text-8xl font-extrabold leading-tight" style={petType === 'cat' ? { color: '#6B4F8A' } : petType === 'dog' ? { color: '#2E7D32' } : undefined}>{title.split(' ').at(-1)}</h2>
         </div>
-        <div className={`flex gap-3 flex-wrap items-center flex-1 justify-center ${bannerImage ? 'pr-36 md:pr-48' : ''}`}>
+        <div className={`flex gap-3 flex-wrap items-center flex-1 justify-center ${bannerImage ? 'md:pr-48' : ''}`}>
           {categories.map((cat) => {
             const c = cat as any;
             if (c.image) {
@@ -187,7 +241,7 @@ export function ShowcaseBlock({ petType, title, icon, color, bannerImage, catego
               {canScrollLeft && (
                 <button
                   onClick={() => scroll('left')}
-                  className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-3 z-10 w-9 h-9 rounded-full bg-white shadow-md flex items-center justify-center hover:shadow-lg transition-shadow"
+                  className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-3 z-10 w-11 h-11 rounded-full bg-white shadow-md flex items-center justify-center hover:shadow-lg transition-shadow"
                   aria-label="Anterior"
                 >
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M15 19l-7-7 7-7"/></svg>
@@ -196,7 +250,7 @@ export function ShowcaseBlock({ petType, title, icon, color, bannerImage, catego
               {canScrollRight && (
                 <button
                   onClick={() => scroll('right')}
-                  className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-3 z-10 w-9 h-9 rounded-full bg-white shadow-md flex items-center justify-center hover:shadow-lg transition-shadow"
+                  className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-3 z-10 w-11 h-11 rounded-full bg-white shadow-md flex items-center justify-center hover:shadow-lg transition-shadow"
                   aria-label="Siguiente"
                 >
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9 5l7 7-7 7"/></svg>

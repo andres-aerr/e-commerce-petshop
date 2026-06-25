@@ -98,7 +98,7 @@ export default function PriceSelector({
           <div className="flex items-center border border-gray-light rounded-md">
             <button
               onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-              className="px-3 py-2 text-primary hover:bg-gray-light/50 transition-colors font-sans text-lg leading-none"
+              className="min-h-[44px] min-w-[44px] flex items-center justify-center text-primary hover:bg-gray-light/50 transition-colors font-sans text-lg leading-none"
             >
               −
             </button>
@@ -107,7 +107,7 @@ export default function PriceSelector({
             </span>
             <button
               onClick={() => setQuantity((q) => q + 1)}
-              className="px-3 py-2 text-primary hover:bg-gray-light/50 transition-colors font-sans text-lg leading-none"
+              className="min-h-[44px] min-w-[44px] flex items-center justify-center text-primary hover:bg-gray-light/50 transition-colors font-sans text-lg leading-none"
             >
               +
             </button>

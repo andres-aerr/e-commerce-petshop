@@ -36,7 +36,7 @@ const pillars = [
 
 export default function TrustPillars() {
   return (
-    <section className="max-w-6xl mx-auto px-6 pb-6">
+    <section className="max-w-6xl mx-auto px-6 py-6 md:pb-6">
       <div className="rounded-2xl border border-gray-light/60 bg-white p-5 md:p-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
           {pillars.map((pillar) => (

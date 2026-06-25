@@ -20,7 +20,7 @@ const footerLinks = [
     ],
   },
   {
-    title: 'Savia',
+    title: 'TuMarca',
     links: [
       { label: 'Sobre Nosotros', href: '/about' },
       { label: 'Blog', href: '/blog' },
@@ -33,13 +33,13 @@ export default function Footer() {
   return (
     <footer className="bg-accent/10 text-accent">
       <div className="max-w-6xl mx-auto px-6 py-12 md:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
           {footerLinks.map((group) => (
             <div key={group.title}>
               <h4 className="font-sans text-sm font-semibold mb-4 uppercase tracking-wider text-accent">
                 {group.title}
               </h4>
-              <ul className="space-y-2">
+              <ul className="space-y-2 flex flex-col items-center md:items-start">
                 {group.links.map((link) => (
                   <li key={link.label}>
                     <a
@@ -56,7 +56,7 @@ export default function Footer() {
         </div>
         <div className="border-t border-accent/20 mt-8 pt-8 text-center">
           <p className="font-sans text-sm text-accent/50">
-            &copy; {new Date().getFullYear()} Savia. Todos los derechos reservados.
+            &copy; {new Date().getFullYear()} TuMarca. Todos los derechos reservados.
           </p>
         </div>
       </div>

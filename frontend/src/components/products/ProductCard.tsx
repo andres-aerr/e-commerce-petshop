@@ -107,10 +107,10 @@ export default function ProductCard({ product }: ProductCardProps) {
               isAutoship: false,
             })
           }
-          className="w-full bg-accent/10 text-accent font-sans font-semibold text-[11px] py-2 rounded-md hover:bg-accent hover:text-white transition-colors"
+          className="w-full bg-accent/10 text-accent font-sans font-semibold text-sm py-3 rounded-md hover:bg-accent hover:text-white transition-colors min-h-[44px]"
         >
-          <ShoppingCart className="w-3.5 h-3.5 inline-block mr-1 -mt-0.5" />
-          Agregar al carrito
+          <ShoppingCart className="w-4 h-4 inline-block mr-1 -mt-0.5" />
+          Agregar
         </button>
         <button
           onClick={() => {
@@ -124,9 +124,9 @@ export default function ProductCard({ product }: ProductCardProps) {
             });
             router.push('/checkout');
           }}
-          className="w-full bg-accent/10 text-accent hover:bg-accent hover:text-white font-sans font-semibold text-[11px] py-2 rounded-md transition-colors"
+          className="w-full bg-accent/10 text-accent hover:bg-accent hover:text-white font-sans font-semibold text-sm py-3 rounded-md transition-colors min-h-[44px]"
         >
-          <ArrowRight className="w-3.5 h-3.5 inline-block mr-1 -mt-0.5" />
+          <ArrowRight className="w-4 h-4 inline-block mr-1 -mt-0.5" />
           Comprar ahora
         </button>
       </div>

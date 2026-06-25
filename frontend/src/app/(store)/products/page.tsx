@@ -144,11 +144,11 @@ function ProductsContent() {
               </p>
             )}
           </div>
-          <div className="flex flex-wrap gap-3">
+          <div className="flex flex-wrap gap-2 w-full sm:w-auto">
             <select
               value={category}
               onChange={(e) => updateParam('category', e.target.value)}
-              className="font-sans text-sm border border-gray-light rounded-md px-3 py-2 focus:outline-none focus:border-secondary bg-white"
+              className="font-sans text-sm border border-gray-light rounded-md px-3 py-2.5 focus:outline-none focus:border-secondary bg-white flex-1 sm:flex-none min-w-0"
             >
               {categories.map((opt) => (
                 <option key={opt.value} value={opt.value}>
@@ -159,7 +159,7 @@ function ProductsContent() {
             <select
               value={petType}
               onChange={(e) => updateParam('pet_type', e.target.value)}
-              className="font-sans text-sm border border-gray-light rounded-md px-3 py-2 focus:outline-none focus:border-secondary bg-white"
+              className="font-sans text-sm border border-gray-light rounded-md px-3 py-2.5 focus:outline-none focus:border-secondary bg-white flex-1 sm:flex-none min-w-0"
             >
               {petTypes.map((opt) => (
                 <option key={opt.value} value={opt.value}>
@@ -170,7 +170,7 @@ function ProductsContent() {
             <select
               value={sort}
               onChange={(e) => updateParam('sort', e.target.value)}
-              className="font-sans text-sm border border-gray-light rounded-md px-3 py-2 focus:outline-none focus:border-secondary bg-white"
+              className="font-sans text-sm border border-gray-light rounded-md px-3 py-2.5 focus:outline-none focus:border-secondary bg-white flex-1 sm:flex-none min-w-0"
             >
               {sortOptions.map((opt) => (
                 <option key={opt.value} value={opt.value}>
@@ -239,46 +239,46 @@ function ProductsContent() {
             </p>
           )}
         </div>
-        <div className="flex flex-wrap gap-3">
-          <select
-            value={category}
-            onChange={(e) => updateParam('category', e.target.value)}
-            className="font-sans text-sm border border-gray-light rounded-md px-3 py-2 focus:outline-none focus:border-secondary bg-white"
-          >
-            {categories.map((opt) => (
-              <option key={opt.value} value={opt.value}>
-                {opt.label}
-              </option>
-            ))}
-          </select>
-          <select
-            value={petType}
-            onChange={(e) => updateParam('pet_type', e.target.value)}
-            className="font-sans text-sm border border-gray-light rounded-md px-3 py-2 focus:outline-none focus:border-secondary bg-white"
-          >
-            {petTypes.map((opt) => (
-              <option key={opt.value} value={opt.value}>
-                {opt.label}
-              </option>
-            ))}
-          </select>
-          <select
-            value={sort}
-            onChange={(e) => updateParam('sort', e.target.value)}
-            className="font-sans text-sm border border-gray-light rounded-md px-3 py-2 focus:outline-none focus:border-secondary bg-white"
-          >
-            {sortOptions.map((opt) => (
-              <option key={opt.value} value={opt.value}>
-                {opt.label}
-              </option>
-            ))}
-          </select>
+          <div className="flex flex-wrap gap-2 w-full sm:w-auto">
+            <select
+              value={category}
+              onChange={(e) => updateParam('category', e.target.value)}
+              className="font-sans text-sm border border-gray-light rounded-md px-3 py-2.5 focus:outline-none focus:border-secondary bg-white flex-1 sm:flex-none min-w-0"
+            >
+              {categories.map((opt) => (
+                <option key={opt.value} value={opt.value}>
+                  {opt.label}
+                </option>
+              ))}
+            </select>
+            <select
+              value={petType}
+              onChange={(e) => updateParam('pet_type', e.target.value)}
+              className="font-sans text-sm border border-gray-light rounded-md px-3 py-2.5 focus:outline-none focus:border-secondary bg-white flex-1 sm:flex-none min-w-0"
+            >
+              {petTypes.map((opt) => (
+                <option key={opt.value} value={opt.value}>
+                  {opt.label}
+                </option>
+              ))}
+            </select>
+            <select
+              value={sort}
+              onChange={(e) => updateParam('sort', e.target.value)}
+              className="font-sans text-sm border border-gray-light rounded-md px-3 py-2.5 focus:outline-none focus:border-secondary bg-white flex-1 sm:flex-none min-w-0"
+            >
+              {sortOptions.map((opt) => (
+                <option key={opt.value} value={opt.value}>
+                  {opt.label}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
-      </div>
 
-      {isLoading ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
+        {isLoading ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
             <div key={i} className="border border-accent/30 rounded-lg p-4 animate-pulse">
               <div className="aspect-square bg-accent/10 rounded-md mb-4" />
               <div className="h-4 bg-accent/10 rounded w-20 mb-3" />

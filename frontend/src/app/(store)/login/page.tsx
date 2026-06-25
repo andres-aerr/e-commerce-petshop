@@ -44,7 +44,7 @@ export default function LoginPage() {
               required
               value={form.email}
               onChange={(e) => setForm({ ...form, email: e.target.value })}
-              className="w-full font-sans text-sm border border-gray-light rounded-md px-4 py-2.5 focus:outline-none focus:border-accent transition-colors"
+              className="w-full font-sans text-sm border border-gray-light rounded-md px-4 py-3.5 focus:outline-none focus:border-accent transition-colors"
             />
           </div>
           <div>
@@ -54,13 +54,13 @@ export default function LoginPage() {
               required
               value={form.password}
               onChange={(e) => setForm({ ...form, password: e.target.value })}
-              className="w-full font-sans text-sm border border-gray-light rounded-md px-4 py-2.5 focus:outline-none focus:border-accent transition-colors"
+              className="w-full font-sans text-sm border border-gray-light rounded-md px-4 py-3.5 focus:outline-none focus:border-accent transition-colors"
             />
           </div>
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-accent text-white font-sans font-semibold text-sm py-3 rounded-md hover:bg-accent/90 transition-colors disabled:opacity-50"
+            className="w-full bg-accent text-white font-sans font-semibold text-sm py-4 rounded-md hover:bg-accent/90 transition-colors disabled:opacity-50"
           >
             {loading ? 'Iniciando sesión...' : 'Iniciar Sesión'}
           </button>

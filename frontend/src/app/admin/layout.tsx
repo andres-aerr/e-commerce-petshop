@@ -4,8 +4,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   return (
     <div className="flex min-h-screen">
       <Sidebar />
-      <div className="flex-1 flex flex-col bg-gray-50">
-        <header className="h-16 bg-white border-b border-gray-light flex items-center justify-between px-6 shrink-0">
+      <div className="flex-1 flex flex-col bg-gray-50 min-w-0">
+        <header className="h-16 bg-white border-b border-gray-light flex items-center justify-between pl-14 lg:pl-6 pr-6 shrink-0">
           <div className="flex items-center gap-3 text-sm text-gray-dark">
             <span className="text-primary font-semibold">Admin</span>
             <span className="text-gray-light">/</span>

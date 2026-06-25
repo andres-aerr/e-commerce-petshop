@@ -60,18 +60,18 @@ export default function CartPage() {
                 <div className="flex items-center gap-2 border border-gray-light rounded-md">
                   <button
                     onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                    className="p-1.5 hover:text-accent transition-colors"
+                    className="min-h-[44px] min-w-[44px] flex items-center justify-center hover:text-accent transition-colors"
                     aria-label="Menos"
                   >
-                    <Minus size={14} />
+                    <Minus size={16} />
                   </button>
-                  <span className="font-sans text-sm font-medium w-8 text-center">{item.quantity}</span>
+                  <span className="font-sans text-sm font-medium min-w-[44px] text-center">{item.quantity}</span>
                   <button
                     onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                    className="p-1.5 hover:text-accent transition-colors"
+                    className="min-h-[44px] min-w-[44px] flex items-center justify-center hover:text-accent transition-colors"
                     aria-label="Mas"
                   >
-                    <Plus size={14} />
+                    <Plus size={16} />
                   </button>
                 </div>
               </div>

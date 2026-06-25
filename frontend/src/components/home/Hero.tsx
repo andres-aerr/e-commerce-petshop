@@ -45,75 +45,77 @@ export default function Hero() {
       <div className="relative max-w-7xl mx-auto px-6 pt-6 pb-4">
       <div className="flex flex-col md:flex-row gap-4">
         <div className="relative flex-[2]">
-          <div className="relative h-[280px] md:h-[300px] rounded-2xl overflow-hidden">
-            <div
-              className="flex h-full transition-transform duration-500 ease-in-out"
-              style={{ transform: `translateX(-${current * 100}%)` }}
-            >
-              {slides.map((slide, i) => (
-                <div key={i} className="relative min-w-full h-full flex-shrink-0">
-                  <Image
-                    src={slide.image}
-                    alt=""
-                    fill
-                    className="object-cover"
-                    priority={i === 0}
-                  />
-                  <div className="absolute inset-0 bg-black/40" />
-                  <div className="relative z-10 w-full h-full flex items-center px-8">
-                    <div className="max-w-lg">
-                      <h2 className="text-2xl md:text-3xl lg:text-4xl font-sans font-semibold text-white mb-2 leading-tight">
-                        {slide.title}
-                      </h2>
-                      <p className="font-sans text-sm md:text-base text-white/80 mb-4 leading-relaxed max-w-md">
-                        {slide.subtitle}
-                      </p>
-                      <a
-                        href={slide.href}
-                        className="inline-block bg-accent hover:bg-accent/90 font-sans font-semibold text-sm px-6 py-3 rounded-lg text-white transition-colors"
-                      >
-                        {slide.cta}
-                      </a>
+          <div className="relative rounded-2xl overflow-hidden">
+            <div className="relative w-full h-[340px] md:aspect-[8/3]">
+              <div
+                className="absolute inset-0 flex transition-transform duration-500 ease-in-out"
+                style={{ transform: `translateX(-${current * 100}%)` }}
+              >
+                {slides.map((slide, i) => (
+                  <div key={i} className="relative min-w-full w-full h-full flex-shrink-0">
+                    <Image
+                      src={slide.image}
+                      alt=""
+                      fill
+                      className="object-cover"
+                      priority={i === 0}
+                    />
+                    <div className="absolute inset-0 bg-black/40" />
+                    <div className="relative z-10 w-full h-full flex items-center justify-center px-6 md:px-10">
+                      <div className="w-full max-w-lg text-center md:text-left">
+                        <h2 className="text-lg sm:text-xl md:text-3xl lg:text-4xl font-sans font-semibold text-white mb-2 leading-tight">
+                          {slide.title}
+                        </h2>
+                        <p className="font-sans text-xs sm:text-sm md:text-base text-white/80 mb-4 leading-relaxed max-w-md mx-auto md:mx-0 line-clamp-2 sm:line-clamp-none">
+                          {slide.subtitle}
+                        </p>
+                        <a
+                          href={slide.href}
+                          className="inline-block bg-accent hover:bg-accent/90 font-sans font-semibold text-xs sm:text-sm px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg text-white transition-colors"
+                        >
+                          {slide.cta}
+                        </a>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
 
-          <div className="flex items-center justify-center gap-2 mt-3">
-            {slides.map((_, i) => (
+            <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-20">
+              {slides.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setCurrent(i)}
+                  aria-label={`Slide ${i + 1}`}
+                  className={`rounded-full transition-all ${
+                    i === current
+                      ? 'bg-white w-6 h-2.5'
+                      : 'bg-white/60 hover:bg-white/80 w-2.5 h-2.5'
+                  }`}
+                />
+              ))}
               <button
-                key={i}
-                onClick={() => setCurrent(i)}
-                className={`w-2.5 h-2.5 rounded-full transition-all ${
-                  i === current
-                    ? 'bg-accent w-6'
-                    : 'bg-gray-light hover:bg-gray-dark'
+                onClick={() => setPaused(!paused)}
+                className={`ml-2 w-6 h-6 rounded-full flex items-center justify-center transition-colors ${
+                  paused
+                    ? 'bg-white text-accent'
+                    : 'bg-white/60 hover:bg-white/80 text-white/80'
                 }`}
-                aria-label={`Slide ${i + 1}`}
-              />
-            ))}
-            <button
-              onClick={() => setPaused(!paused)}
-              className={`ml-2 w-7 h-7 rounded-full flex items-center justify-center transition-colors ${
-                paused
-                  ? 'bg-accent text-white'
-                  : 'bg-gray-light hover:bg-gray-dark'
-              }`}
-              aria-label={paused ? 'Reanudar' : 'Pausar'}
-            >
-              {paused ? (
-                <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
-                  <polygon points="5,3 19,12 5,21" />
-                </svg>
-              ) : (
-                <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
-                  <rect x="6" y="4" width="4" height="16" />
-                  <rect x="14" y="4" width="4" height="16" />
-                </svg>
-              )}
-            </button>
+                aria-label={paused ? 'Reanudar' : 'Pausar'}
+              >
+                {paused ? (
+                  <svg width="8" height="8" viewBox="0 0 24 24" fill="currentColor">
+                    <polygon points="5,3 19,12 5,21" />
+                  </svg>
+                ) : (
+                  <svg width="8" height="8" viewBox="0 0 24 24" fill="currentColor">
+                    <rect x="6" y="4" width="4" height="16" />
+                    <rect x="14" y="4" width="4" height="16" />
+                  </svg>
+                )}
+              </button>
+            </div>
           </div>
 
           <button
@@ -130,7 +132,7 @@ export default function Hero() {
         <div className="flex-1 relative">
           <div className="absolute -top-10 -right-10 w-64 h-64 bg-accent/30 rounded-full blur-3xl" />
           <div className="absolute -bottom-10 -left-10 w-48 h-48 bg-accent/20 rounded-full blur-3xl" />
-          <div className="glass-card relative h-[280px] md:h-[300px] p-6 flex flex-col">
+          <div className="glass-card relative p-6 flex flex-col" style={{ minHeight: '280px' }}>
             <div className="absolute bottom-0 right-0 w-44 h-44 md:w-48 md:h-48 pointer-events-none">
               <Image
                 src="/images/banners/perro-gato-card-hero.png"
@@ -205,7 +207,6 @@ export default function Hero() {
             rgba(255, 255, 255, 0.3)
           );
         }
-
       `}</style>
     </section>
   );

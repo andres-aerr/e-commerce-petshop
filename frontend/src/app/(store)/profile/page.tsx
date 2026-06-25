@@ -79,7 +79,7 @@ export default function ProfilePage() {
               type="text"
               value={form.first_name}
               onChange={(e) => setForm({ ...form, first_name: e.target.value })}
-              className="w-full font-sans text-sm border border-gray-light rounded-md px-4 py-2.5 focus:outline-none focus:border-accent transition-colors"
+              className="w-full font-sans text-sm border border-gray-light rounded-md px-4 py-3.5 focus:outline-none focus:border-accent transition-colors"
             />
           </div>
           <div>
@@ -88,7 +88,7 @@ export default function ProfilePage() {
               type="text"
               value={form.last_name}
               onChange={(e) => setForm({ ...form, last_name: e.target.value })}
-              className="w-full font-sans text-sm border border-gray-light rounded-md px-4 py-2.5 focus:outline-none focus:border-accent transition-colors"
+              className="w-full font-sans text-sm border border-gray-light rounded-md px-4 py-3.5 focus:outline-none focus:border-accent transition-colors"
             />
           </div>
         </div>
@@ -98,13 +98,13 @@ export default function ProfilePage() {
             type="tel"
             value={form.phone}
             onChange={(e) => setForm({ ...form, phone: e.target.value })}
-            className="w-full font-sans text-sm border border-gray-light rounded-md px-4 py-2.5 focus:outline-none focus:border-accent transition-colors"
+            className="w-full font-sans text-sm border border-gray-light rounded-md px-4 py-3.5 focus:outline-none focus:border-accent transition-colors"
           />
         </div>
         <button
           type="submit"
           disabled={saving}
-          className="bg-accent text-white font-sans font-semibold text-sm px-6 py-2.5 rounded-md hover:bg-accent/90 transition-colors disabled:opacity-50"
+          className="bg-accent text-white font-sans font-semibold text-sm px-6 py-3.5 rounded-md hover:bg-accent/90 transition-colors disabled:opacity-50"
         >
           {saving ? 'Guardando...' : 'Guardar Cambios'}
         </button>

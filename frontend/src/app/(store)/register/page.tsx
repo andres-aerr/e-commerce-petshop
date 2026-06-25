@@ -44,7 +44,7 @@ export default function RegisterPage() {
                 type="text"
                 value={form.first_name}
                 onChange={(e) => setForm({ ...form, first_name: e.target.value })}
-                className="w-full font-sans text-sm border border-gray-light rounded-md px-4 py-2.5 focus:outline-none focus:border-accent transition-colors"
+                className="w-full font-sans text-sm border border-gray-light rounded-md px-4 py-3.5 focus:outline-none focus:border-accent transition-colors"
               />
             </div>
             <div>
@@ -53,7 +53,7 @@ export default function RegisterPage() {
                 type="text"
                 value={form.last_name}
                 onChange={(e) => setForm({ ...form, last_name: e.target.value })}
-                className="w-full font-sans text-sm border border-gray-light rounded-md px-4 py-2.5 focus:outline-none focus:border-accent transition-colors"
+                className="w-full font-sans text-sm border border-gray-light rounded-md px-4 py-3.5 focus:outline-none focus:border-accent transition-colors"
               />
             </div>
           </div>
@@ -64,7 +64,7 @@ export default function RegisterPage() {
               required
               value={form.email}
               onChange={(e) => setForm({ ...form, email: e.target.value })}
-              className="w-full font-sans text-sm border border-gray-light rounded-md px-4 py-2.5 focus:outline-none focus:border-accent transition-colors"
+              className="w-full font-sans text-sm border border-gray-light rounded-md px-4 py-3.5 focus:outline-none focus:border-accent transition-colors"
             />
           </div>
           <div>
@@ -73,7 +73,7 @@ export default function RegisterPage() {
               type="tel"
               value={form.phone}
               onChange={(e) => setForm({ ...form, phone: e.target.value })}
-              className="w-full font-sans text-sm border border-gray-light rounded-md px-4 py-2.5 focus:outline-none focus:border-accent transition-colors"
+              className="w-full font-sans text-sm border border-gray-light rounded-md px-4 py-3.5 focus:outline-none focus:border-accent transition-colors"
             />
           </div>
           <div>
@@ -84,13 +84,13 @@ export default function RegisterPage() {
               minLength={6}
               value={form.password}
               onChange={(e) => setForm({ ...form, password: e.target.value })}
-              className="w-full font-sans text-sm border border-gray-light rounded-md px-4 py-2.5 focus:outline-none focus:border-accent transition-colors"
+              className="w-full font-sans text-sm border border-gray-light rounded-md px-4 py-3.5 focus:outline-none focus:border-accent transition-colors"
             />
           </div>
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-accent text-white font-sans font-semibold text-sm py-3 rounded-md hover:bg-accent/90 transition-colors disabled:opacity-50"
+            className="w-full bg-accent text-white font-sans font-semibold text-sm py-4 rounded-md hover:bg-accent/90 transition-colors disabled:opacity-50"
           >
             {loading ? 'Creando cuenta...' : 'Crear Cuenta'}
           </button>

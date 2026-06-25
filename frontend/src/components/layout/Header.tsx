@@ -88,17 +88,17 @@ export default function Header() {
       <div className="max-w-6xl mx-auto px-6">
         <div className="flex items-center justify-between h-16">
           <button
-            className="md:hidden p-2 -ml-2"
+            className="md:hidden min-h-[44px] min-w-[44px] flex items-center justify-center -ml-2"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Menu"
           >
             {menuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
 
-          <a href="/" className="flex items-center gap-2 text-white hover:bg-white/20 rounded-md px-2 py-1.5 -ml-2 transition-colors">
+          <a href="/" className="hidden md:flex items-center gap-2 text-white hover:bg-white/20 rounded-md px-2 py-1.5 -ml-2 transition-colors">
             <span className="text-xl">🐾</span>
             <span className="font-sans text-xl font-semibold tracking-tight">
-              Savia
+              TuMarca
             </span>
           </a>
 
@@ -139,7 +139,7 @@ export default function Header() {
           <div className="flex items-center gap-1">
             <button
               onClick={() => setSearchOpen(!searchOpen)}
-              className="p-2 text-white hover:bg-white/20 rounded-md transition-colors"
+              className="min-h-[44px] min-w-[44px] flex items-center justify-center text-white hover:bg-white/20 rounded-md transition-colors"
               aria-label="Buscar"
             >
               <Search size={20} />
@@ -148,7 +148,7 @@ export default function Header() {
               <div className="relative">
                 <button
                   onClick={() => setUserMenuOpen(!userMenuOpen)}
-                  className="p-2 text-white hover:bg-white/20 rounded-md transition-colors"
+                  className="min-h-[44px] min-w-[44px] flex items-center justify-center text-white hover:bg-white/20 rounded-md transition-colors"
                   aria-label="Usuario"
                 >
                   <User size={20} />
@@ -169,19 +169,19 @@ export default function Header() {
             ) : (
               <a
                 href="/login"
-                className="font-sans text-sm font-medium text-white px-3 py-2 rounded-md hover:bg-white/20 transition-colors"
+                className="font-sans text-sm font-semibold text-accent bg-white px-4 py-2 rounded-full hover:bg-white/90 transition-colors"
               >
                 Ingresar
               </a>
             )}
             <a
               href="/cart"
-              className="p-2 text-white hover:bg-white/20 rounded-md transition-colors relative"
+              className="min-h-[44px] min-w-[44px] flex items-center justify-center text-white hover:bg-white/20 rounded-md transition-colors relative"
               aria-label="Carrito"
             >
               <ShoppingCart size={20} />
               {hydrated && totalItems > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 bg-white text-accent text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+                <span className="absolute -top-0.5 -right-0.5 bg-white text-accent text-[11px] font-bold w-5 h-5 rounded-full flex items-center justify-center">
                   {totalItems}
                 </span>
               )}
@@ -207,6 +207,11 @@ export default function Header() {
       {menuOpen && (
         <div className="md:hidden border-t border-white/20 bg-accent">
           <div className="px-6 py-4 space-y-1">
+            <a href="/" className="flex items-center gap-2 text-white py-3 px-3 -mx-3 rounded-md hover:bg-white/20 transition-colors" onClick={() => setMenuOpen(false)}>
+              <span className="text-xl">🐾</span>
+              <span className="font-sans text-xl font-semibold tracking-tight">TuMarca</span>
+            </a>
+            <hr className="my-2 border-white/20" />
             {navItems.map((item) => (
               <div key={item.href}>
                 <div className="flex items-center justify-between">
@@ -220,7 +225,7 @@ export default function Header() {
                   {item.subcategories.length > 0 && (
                     <button
                       onClick={() => setOpenMobileSub(openMobileSub === item.label ? null : item.label)}
-                      className="p-3 text-white hover:bg-white/20 rounded-md transition-colors"
+                      className="min-h-[44px] min-w-[44px] flex items-center justify-center text-white hover:bg-white/20 rounded-md transition-colors"
                       aria-label="Subcategorías"
                     >
                       <ChevronDown size={16} className={`transition-transform ${openMobileSub === item.label ? 'rotate-180' : ''}`} />
