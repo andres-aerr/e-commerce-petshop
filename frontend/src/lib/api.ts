@@ -1,4 +1,10 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+import {
+  getMockProducts,
+  getMockBestSellers,
+  getMockProduct,
+  getMockProductReviews,
+  getMockCategories,
+} from './mock-data';
 
 export interface Product {
   id: string;
@@ -31,93 +37,6 @@ export interface ProductsResponse {
   total_pages: number;
 }
 
-async function fetchAPI<T>(endpoint: string): Promise<T> {
-  const res = await fetch(`${API_URL}/api${endpoint}`);
-  if (!res.ok) throw new Error(`API error: ${res.status} ${res.statusText}`);
-  return res.json();
-}
-
-async function fetchAPIAuth<T>(endpoint: string, token: string | null): Promise<T> {
-  const headers: Record<string, string> = {};
-  if (token) headers['Authorization'] = `Bearer ${token}`;
-  const res = await fetch(`${API_URL}/api${endpoint}`, { headers });
-  if (!res.ok) throw new Error(`API error: ${res.status} ${res.statusText}`);
-  return res.json();
-}
-
-async function postAPI<T>(endpoint: string, body: unknown): Promise<T> {
-  const res = await fetch(`${API_URL}/api${endpoint}`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body),
-  });
-  if (!res.ok) {
-    const err = await res.json().catch(() => ({ message: 'Request failed' }));
-    throw new Error(err.message || `API error: ${res.status}`);
-  }
-  return res.json();
-}
-
-async function patchAPI<T>(endpoint: string, body: unknown, token: string | null): Promise<T> {
-  const headers: Record<string, string> = { 'Content-Type': 'application/json' };
-  if (token) headers['Authorization'] = `Bearer ${token}`;
-  const res = await fetch(`${API_URL}/api${endpoint}`, {
-    method: 'PATCH',
-    headers,
-    body: JSON.stringify(body),
-  });
-  if (!res.ok) {
-    const err = await res.json().catch(() => ({ message: 'Request failed' }));
-    throw new Error(err.message || `API error: ${res.status}`);
-  }
-  return res.json();
-}
-
-export function register(data: { email: string; password: string; first_name?: string; last_name?: string; phone?: string }): Promise<{ access_token: string; user: { id: string; email: string } }> {
-  return postAPI('/auth/register', data);
-}
-
-export function login(data: { email: string; password: string }): Promise<{ access_token: string; user: { id: string; email: string } }> {
-  return postAPI('/auth/login', data);
-}
-
-export function getProfile(token: string | null): Promise<any> {
-  return fetchAPIAuth('/users/me', token);
-}
-
-export function updateProfile(token: string | null, data: { first_name?: string; last_name?: string; phone?: string }): Promise<any> {
-  return patchAPI('/users/me', data, token);
-}
-
-export function getBestSellers(): Promise<ProductsResponse['products']> {
-  return fetchAPI('/products/bestsellers');
-}
-
-export function getProducts(params?: {
-  category?: string;
-  pet_type?: string;
-  sort?: string;
-  page?: number;
-  limit?: number;
-}): Promise<ProductsResponse> {
-  const search = new URLSearchParams();
-  if (params?.category) search.set('category', params.category);
-  if (params?.pet_type) search.set('pet_type', params.pet_type);
-  if (params?.sort) search.set('sort', params.sort);
-  if (params?.page) search.set('page', String(params.page));
-  if (params?.limit) search.set('limit', String(params.limit));
-  const qs = search.toString();
-  return fetchAPI(`/products${qs ? `?${qs}` : ''}`);
-}
-
-export function getProduct(slug: string): Promise<Product> {
-  return fetchAPI(`/products/${slug}`);
-}
-
-export function getProductReviews(slug: string): Promise<any[]> {
-  return fetchAPI(`/products/${slug}/reviews`);
-}
-
 export interface Category {
   id: string;
   name: string;
@@ -128,6 +47,74 @@ export interface Category {
   children?: Category[];
 }
 
-export function getCategories(): Promise<Category[]> {
-  return fetchAPI('/categories');
+const mockUser = {
+  id: 'mock-user-1',
+  email: 'demo@savia.cl',
+  first_name: 'Usuario',
+  last_name: 'Demo',
+  phone: '+56912345678',
+};
+
+const delay = (ms = 200) => new Promise((r) => setTimeout(r, ms));
+
+export async function register(data: { email: string; password: string; first_name?: string; last_name?: string; phone?: string }): Promise<{ access_token: string; user: { id: string; email: string } }> {
+  await delay();
+  return {
+    access_token: 'mock-token-' + Date.now(),
+    user: { id: mockUser.id, email: data.email },
+  };
+}
+
+export async function login(data: { email: string; password: string }): Promise<{ access_token: string; user: { id: string; email: string } }> {
+  await delay();
+  if (!data.email || !data.password) throw new Error('Credenciales invalidas');
+  return {
+    access_token: 'mock-token-' + Date.now(),
+    user: { id: mockUser.id, email: data.email },
+  };
+}
+
+export async function getProfile(token: string | null): Promise<any> {
+  await delay();
+  if (!token) throw new Error('No autorizado');
+  return mockUser;
+}
+
+export async function updateProfile(token: string | null, data: { first_name?: string; last_name?: string; phone?: string }): Promise<any> {
+  await delay();
+  if (!token) throw new Error('No autorizado');
+  return { ...mockUser, ...data };
+}
+
+export async function getBestSellers(): Promise<ProductsResponse['products']> {
+  await delay();
+  return getMockBestSellers();
+}
+
+export async function getProducts(params?: {
+  category?: string;
+  pet_type?: string;
+  sort?: string;
+  page?: number;
+  limit?: number;
+}): Promise<ProductsResponse> {
+  await delay();
+  return getMockProducts(params);
+}
+
+export async function getProduct(slug: string): Promise<Product> {
+  await delay();
+  const product = getMockProduct(slug);
+  if (!product) throw new Error('Producto no encontrado');
+  return product;
+}
+
+export async function getProductReviews(slug: string): Promise<any[]> {
+  await delay();
+  return getMockProductReviews(slug);
+}
+
+export async function getCategories(): Promise<Category[]> {
+  await delay();
+  return getMockCategories();
 }

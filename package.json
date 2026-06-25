@@ -3,16 +3,9 @@
   "private": true,
   "version": "0.1.0",
   "scripts": {
-    "predev": "lsof -ti :3000 -ti :3001 -ti :3002 2>/dev/null | xargs kill -9 2>/dev/null; echo 'Puertos liberados'",
-    "dev": "concurrently \"pnpm --filter backend dev\" \"pnpm --filter frontend dev\"",
-    "build": "pnpm --filter backend build && pnpm --filter frontend build",
-    "lint": "pnpm --filter backend lint && pnpm --filter frontend lint",
-    "kill": "lsof -ti :3000 -ti :3001 -ti :3002 2>/dev/null | xargs kill -9 2>/dev/null; echo 'Puertos liberados'",
-    "db:generate": "pnpm --filter backend db:generate",
-    "db:push": "pnpm --filter backend db:push",
-    "db:seed": "pnpm --filter backend db:seed"
-  },
-  "devDependencies": {
-    "concurrently": "^9.1.0"
+    "dev": "pnpm --filter frontend dev",
+    "build": "pnpm --filter frontend build",
+    "export": "pnpm --filter frontend build && npx serve@latest frontend/out",
+    "lint": "pnpm --filter frontend lint"
   }
 }

@@ -1,4 +1,5 @@
 import { getProduct, getProductReviews } from '@/lib/api';
+import { allProductSlugs } from '@/lib/mock-data';
 import ProductImages from '@/components/pdp/ProductImages';
 import PriceSelector from '@/components/pdp/PriceSelector';
 import Reviews from '@/components/pdp/Reviews';
@@ -7,6 +8,10 @@ import { notFound } from 'next/navigation';
 
 interface Props {
   params: Promise<{ slug: string }>;
+}
+
+export function generateStaticParams() {
+  return allProductSlugs.map((slug) => ({ slug }));
 }
 
 function formatPrice(price: number) {
